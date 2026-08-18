@@ -1,5 +1,9 @@
 # AI-Memory Framework
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/hczxy05/ai-memory-framework?style=social)](https://github.com/hczxy05/ai-memory-framework)
+[![GitHub issues](https://img.shields.io/github/issues/hczxy05/ai-memory-framework)](https://github.com/hczxy05/ai-memory-framework/issues)
+
 A dual-store AI memory architecture combining **authoritative Git Markdown** with **experience memory** for long-term AI-human collaboration.
 
 > **One line**: AI-Memory manages *what is true now*; TDAI recalls *what happened before*. Confirm the present, then reference the past.
