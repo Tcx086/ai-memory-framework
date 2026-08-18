@@ -1,0 +1,70 @@
+{
+  "agents": {
+    "list": [
+      {
+        "id": "main"
+      },
+      {
+        "id": "tdai-poc",
+        "workspace": "<isolated-workspace-path>",
+        "model": "<provider/model>",
+        "tools": {
+          "profile": "coding",
+          "alsoAllow": [
+            "tdai_memory_search",
+            "tdai_conversation_search",
+            "tdai_read_cos"
+          ]
+        }
+      }
+    ]
+  },
+  "plugins": {
+    "entries": {
+      "memory-tencentdb": {
+        "enabled": true,
+        "hooks": {
+          "allowConversationAccess": true
+        },
+        "config": {
+          "mode": "local",
+          "storeBackend": "sqlite",
+          "capture": {
+            "enabled": true,
+            "excludeAgents": [
+              "main"
+            ],
+            "l0l1RetentionDays": 0
+          },
+          "extraction": {
+            "enabled": true,
+            "enableDedup": true,
+            "maxMemoriesPerSession": 10
+          },
+          "recall": {
+            "enabled": false,
+            "maxResults": 3,
+            "maxCharsPerMemory": 1000,
+            "maxTotalRecallChars": 3000,
+            "scoreThreshold": 0.5,
+            "strategy": "keyword",
+            "timeoutMs": 5000
+          },
+          "embedding": {
+            "enabled": false,
+            "provider": "none"
+          },
+          "llm": {
+            "enabled": false
+          },
+          "offload": {
+            "enabled": false
+          },
+          "report": {
+            "enabled": false
+          }
+        }
+      }
+    }
+  }
+}

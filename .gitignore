@@ -1,0 +1,30 @@
+# Runtime data (never commit)
+*.db
+*.db-shm
+*.db-wal
+*.jsonl
+.backup/
+
+# Credentials and secrets
+.env
+*.key
+*.pem
+*.token
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Node modules
+node_modules/
+
+# OpenClaw runtime (if accidentally included)
+openclaw.json
+openclaw.yaml

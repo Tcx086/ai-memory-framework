@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "provider": "TDAI",
+  "default_authority": "historical-evidence",
+  "content_mutability": "provider-generated-or-recorded",
+  "authoritative_source": "host-governance",
+  "layers": {
+    "L0": "raw-conversation-history",
+    "L1": "extracted-structured-memory",
+    "L2": "generated-scene-narrative",
+    "L3": "generated-persona-summary"
+  },
+  "rules": [
+    "validate-against-host-authority",
+    "current-user-instruction-wins",
+    "never-override-host-governance-or-authoritative-memory"
+  ]
+}
