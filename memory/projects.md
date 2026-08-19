@@ -26,26 +26,22 @@ Detailed technical information should stay inside the project repository.
 
 # Projects
 
-
-<!-- Add your projects following this template -->
-
-## Example Project
+<!-- Add your projects following the format below. Remove this comment when done. -->
+<!--
+## Project Name
 
 Status Summary:
-
-Active
+Active / Development / Testing / Completed / Archived
 
 Description:
-
 Brief description of the project.
 
 Local Path:
-
 `/path/to/project`
 
 Last Confirmed:
-
 YYYY-MM-DD
+-->
 
 
 ---

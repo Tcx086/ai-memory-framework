@@ -3,18 +3,15 @@
 
 ## User Profile
 
-<!-- Fill in your own information -->
-- Name: <!-- Your name -->
-- Identity: <!-- Your role / occupation -->
-- Timezone: <!-- e.g. Asia/Shanghai, America/New_York -->
+<!-- Fill in your own information and remove the angle-bracket comments -->
+- Name:
+- Identity:
+- Timezone:
 
 
 ## Main Technical Areas
 
-<!-- List your primary technical domains -->
-- <!-- e.g. Embedded Systems -->
-- <!-- e.g. Robotics -->
-- <!-- e.g. Machine Learning -->
+<!-- List your primary technical domains, e.g. Embedded Systems, Robotics, ML -->
 
 
 ## Engineering Preferences
@@ -33,17 +30,17 @@ Avoided:
 
 ## Communication Preferences
 
-- Language: <!-- e.g. English, Chinese -->
-- Style: <!-- e.g. Direct, concise -->
-- Reports: <!-- e.g. Word (.docx), Markdown -->
+- Language:
+- Style:
+- Reports:
 - Batch operations: <!-- e.g. Run 5-10 first, confirm before continuing -->
 
 
 ## Agent Identity
 
 <!-- Optional: define how the AI should refer to itself -->
-- Name: <!-- e.g. Jarvis -->
-- Style: <!-- e.g. Professional, casual -->
+- Name:
+- Style:
 
 
 ## Desktop / Workspace Layout

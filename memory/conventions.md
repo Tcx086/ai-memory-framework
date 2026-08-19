@@ -183,9 +183,7 @@ These are environment-level lessons, not project-specific.
 Admission, promotion, review, and removal follow memory/memory-policy.md.
 
 
-<!-- Add your environment-specific pitfalls here. Examples: -->
-<!-- - For Windows PowerShell 5.1 compatibility, avoid `&&`; use separate commands or `;`. -->
-<!-- - Expand-Archive only accepts .zip; for .docx, copy to .zip first. -->
+<!-- Add your environment-specific pitfalls below. Remove this comment when done. -->
 
 
 ---
