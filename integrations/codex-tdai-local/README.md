@@ -7,6 +7,7 @@ This adapter exposes the local TDAI SQLite store to Codex through a STDIO MCP se
 - `tdai_memory_search` — searches structured L1 experience, maximum 3 results.
 - `tdai_conversation_search` — searches raw L0 conversation history, maximum 3 results.
 - `tdai_read_cos` — reads L2/L3 scene blocks and persona files.
+- `tdai_experience_store` — stores one user-authorized experience in L1.
 
 All recalled content is historical evidence. Git Markdown remains authoritative and wins every conflict.
 
@@ -40,8 +41,7 @@ See `server.mjs` for the MCP server implementation. It wraps the local SQLite da
 
 ## Requirements
 
-- Node.js 18+
-- `@tencentdb-agent-memory/memory-tencentdb` plugin installed (for the SQLite database)
+- Node.js 22.5+ (for built-in `node:sqlite`)
 - TDAI data directory with at least L0/L1 data
 
 ## Verification
