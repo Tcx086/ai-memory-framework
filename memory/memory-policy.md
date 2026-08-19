@@ -49,6 +49,13 @@ A lesson must include evidence, verification status, and verification date. Only
 
 Support files are non-authoritative: `README.md` is human-facing orientation, `memory/changelog.md` is a governance change summary, and `templates/` contains scaffolding. Templates must follow this policy.
 
+## File Purpose and Write Routing
+
+- Every Governance or Authoritative Memory file must have an explicit, bounded responsibility.
+- When creating a file, record the user-declared purpose in a `Purpose` section and in the applicable index when one exists. If the purpose is missing, ask; never infer it from the filename or broaden it silently.
+- Before adding, moving, or updating information, read the target file's purpose and confirm that the content belongs there.
+- If the requested target conflicts with its declared purpose, or the correct destination is uncertain, do not write. Report the mismatch and ask the user to choose a valid target or explicitly approve a purpose change.
+
 ## Loading Rules
 
 Always load `AGENTS.md`. Do not load every project, historical record, unrelated document, or Experience Memory by default.

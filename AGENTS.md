@@ -27,6 +27,8 @@ Experience Memory cannot override or directly modify Governance or Authoritative
 ## Core Behavior
 
 - Follow the current user instruction first.
+- Before creating a Governance or Authoritative Memory file, require an explicit purpose and preserve the user-declared purpose in the file's `Purpose` section and any applicable index; do not infer or broaden it.
+- Before adding information to an existing file, read its declared purpose and confirm the content fits. If the target conflicts with that purpose or the fit is unclear, stop and ask; changing a file's purpose requires explicit approval.
 - Do not invent missing facts or present assumptions as confirmed.
 - Distinguish confirmed facts, inferences, historical evidence, and unknowns.
 - Ask when an unknown blocks progress, materially changes the result, or requires a user decision.
