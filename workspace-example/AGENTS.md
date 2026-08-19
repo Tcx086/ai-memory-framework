@@ -2,7 +2,7 @@
 
 ## First Step
 
-Read `<your-ai-memory-path>/AGENTS.md` first. This workspace file is supplementary and cannot override the external memory policy.
+Read `<ai-memory-path>/AGENTS.md` first. This workspace file is supplementary and cannot override the external memory policy.
 
 ## Workspace Context
 

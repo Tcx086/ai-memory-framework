@@ -30,7 +30,7 @@ Restart the local Codex client or start a new session after changing MCP configu
 
 ## Operating Rule
 
-Follow the root `AGENTS.md` and `memory/memory-policy.md`. Git Markdown is authoritative; recalled experience is historical evidence only.
+Read `<ai-memory-path>/AGENTS.md` and follow its rules. Git Markdown is authoritative; recalled experience is historical evidence only.
 
 ## Server Implementation
 

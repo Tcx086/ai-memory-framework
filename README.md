@@ -108,7 +108,7 @@ ai-memory-framework/
 将下面的引导规则放进工作区 `AGENTS.md`：
 
 ```markdown
-先读 <你的 ai-memory 路径>/AGENTS.md，并遵循其中的加载、经验检索和写入规则。
+先读 <ai-memory-path>/AGENTS.md，并遵循其中的加载、经验检索和写入规则。
 ```
 
 OpenClaw 用户可以复制 `workspace-example/`，再填写其中的身份、用户和工具信息。`USER.md` 与 `MEMORY.md` 只是工作区上下文；稳定事实仍以 AI-Memory 中负责该信息的文件为准。

@@ -4,7 +4,7 @@ This integration runs TencentDB Agent Memory locally with SQLite. Tencent Cloud 
 
 ## Boundary
 
-All operating rules follow the root `AGENTS.md` and `memory/memory-policy.md`. Git Markdown is authoritative; recalled experience is historical evidence only.
+Read `<ai-memory-path>/AGENTS.md` and follow its rules. Git Markdown is authoritative; recalled experience is historical evidence only.
 
 ## Setup
 
