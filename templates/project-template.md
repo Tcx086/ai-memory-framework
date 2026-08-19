@@ -1,172 +1,96 @@
-# Project Template Group
+# Project Documentation Templates
 
-This template generates separated files for a project.
-Create these files inside the project repository:
+Use separate files for selective loading, or combine the same sections into `PROJECT.md` for a small project. Each file is authoritative only for its assigned responsibility.
 
-- STATUS.md — current status, goals, blockers
-- ARCHITECTURE.md — system design, technology stack
-- DECISIONS.md — important design decisions with rationale
-- BUGS.md — known issues and verified bug information
-- LESSONS.md — reusable knowledge and pitfalls
-
-These files are Layer 2 Authoritative Memory within their assigned responsibilities. Do not copy recalled Experience Memory into them without validation and user-authorized Memory Promotion.
-
----
-
-# STATUS.md Template
+## STATUS.md
 
 ```markdown
 # Project Status
 
-## Current Status
-
-<!-- Planning / Development / Testing / Completed / Archived -->
-
-## Last Update
-
-YYYY-MM-DD
-
-## Current Goal
-
-<!-- What is the next concrete objective? -->
-
-## Blockers
-
-<!-- Any blocking issues? -->
+- **State:** Planning / Development / Testing / Completed / Archived
+- **Last updated:** YYYY-MM-DD
+- **Current goal:**
+- **Blockers:**
 
 ## Recent Changes
 
-<!-- Brief list of recent significant changes -->
+-
 ```
 
----
-
-# ARCHITECTURE.md Template
+## ARCHITECTURE.md
 
 ```markdown
 # Architecture
 
-## System Overview
+## Overview
 
-<!-- Brief description of the system structure -->
+<!-- Describe the system and its boundaries. -->
 
-## Technology Stack
+## Technology
 
-Hardware:
-Software:
-Frameworks:
+- Hardware:
+- Software:
+- Frameworks:
 
-## Key Components
+## Components
 
-<!-- List major modules/components and their roles -->
+| Component | Responsibility |
+|---|---|
+| | |
 
-## Interfaces
+## Interfaces and Resources
 
-<!-- How components communicate (UART, SPI, API, etc.) -->
-
-## Pin Mapping / Resource Allocation
-
-<!-- Hardware resource assignments, if applicable -->
+<!-- APIs, protocols, pin mappings, ports, or other allocations. -->
 ```
 
----
-
-# DECISIONS.md Template
+## DECISIONS.md
 
 ```markdown
 # Decisions
 
-## Decision: [Title]
+## [Decision title]
 
-Date: YYYY-MM-DD
-
-Context:
-<!-- What problem or situation led to this decision? -->
-
-Decision:
-<!-- What was decided? -->
-
-Alternatives Considered:
-<!-- What other options were evaluated? -->
-
-Reason:
-<!-- Why was this option chosen? -->
-
-Status:
-<!-- Active / Superseded / Deprecated -->
-
-Supersedes / Replaced By:
-<!-- Link the related decision when status changes -->
+- **Date:** YYYY-MM-DD
+- **Status:** Active / Superseded / Deprecated
+- **Context:**
+- **Decision:**
+- **Reason:**
+- **Alternatives considered:**
+- **Supersedes / replaced by:**
 ```
 
-Decision lifecycle is governed by the AI-Memory policy.
+When a decision changes, preserve the history and link its replacement.
 
----
-
-# BUGS.md Template
+## BUGS.md
 
 ```markdown
 # Known Issues
 
-<!-- BUGS.md is the authority for confirmed known issues. Keep unverified recall or hypotheses outside this file until validated. -->
+## [Issue title]
 
-## [Issue Title]
-
-Status:
-<!-- Open / Investigating / Resolved / Won't Fix -->
-
-Symptoms:
-<!-- What observable behavior identifies the issue? -->
-
-Confirmed Cause:
-<!-- Leave blank until verified; do not record speculation as fact. -->
-
-Workaround:
-<!-- Temporary mitigation, if one exists -->
-
-Resolution:
-<!-- Final fix, once verified -->
-
-Last Verified:
-YYYY-MM-DD
+- **Status:** Open / Investigating / Resolved / Won't Fix
+- **Symptoms:**
+- **Confirmed cause:** <!-- Leave blank until verified. -->
+- **Workaround:**
+- **Resolution:**
+- **Last verified:** YYYY-MM-DD
 ```
 
----
+Keep unverified symptoms and hypotheses outside `BUGS.md` until validated.
 
-# LESSONS.md Template
+## LESSONS.md
 
 ```markdown
 # Lessons Learned
 
 ## [Topic]
 
-Context:
-<!-- When/where was this lesson learned? -->
-
-Evidence:
-<!-- Test result, authoritative source, or repeated verified observation -->
-
-Lesson:
-<!-- Record only a conclusion supported by the evidence above -->
-
-Action:
-<!-- What should be done differently next time? -->
-
-Verification Status:
-<!-- Confirmed / Needs Verification -->
-
-Last Verified:
-YYYY-MM-DD
+- **Context:**
+- **Evidence:**
+- **Lesson:**
+- **Action:**
+- **Verification:** Confirmed / Needs Verification
+- **Last verified:** YYYY-MM-DD
 ```
 
-Lesson verification and authority are governed by the AI-Memory policy.
-
----
-
-# Usage
-
-For small projects, a single `PROJECT.md` combining all sections is acceptable.
-
-For larger projects, use separated files for better maintainability and selective loading.
-
-When an Experience Memory result suggests an update, first record it as a Candidate Memory proposal with evidence, validation status, and an exact target file. Apply it only after the policy admission requirements are satisfied.
+Only confirmed lessons are authoritative. A recalled Experience Memory item must pass validation and user-authorized promotion before entering any project file.

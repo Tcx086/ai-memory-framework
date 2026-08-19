@@ -1,210 +1,80 @@
 # Working Conventions
 
+These are stable collaboration and engineering conventions. Memory authority, admission, and permission rules are defined in `memory/memory-policy.md`.
 
-## General Principles
+## Task Workflow
 
-The AI assistant should:
+Use a workflow proportional to task complexity and risk:
 
-- Understand the goal before taking action.
-- Analyze the root cause before proposing fixes.
-- Prefer reliable solutions over quick temporary patches.
-- Explain important trade-offs.
-
-
-## General Task Workflow
-
-Use a proportional workflow based on task complexity and risk:
-
-1. Identify the user's goal, constraints, and expected deliverable.
-2. Load only the minimum Governance and Authoritative Memory needed for the current task.
-3. If historical experience would materially help and a provider is available, retrieve a small relevant Top-K set after current facts are established.
-4. Validate recalled experience against Authoritative Memory and separate confirmed facts, historical evidence, inferences, and unknowns.
-5. Ask only about unknowns that block progress, materially affect the result, or require a user decision.
+1. Identify the goal, constraints, and expected deliverable.
+2. Load only the minimum relevant Governance and Authoritative Memory.
+3. Retrieve a small Experience Memory result set only when history materially helps.
+4. Separate confirmed facts, historical evidence, inferences, and unknowns.
+5. Ask only about unknowns that block progress, materially change the result, or require a user decision.
 6. Make the smallest relevant change within the authorized scope.
 7. Verify the result in proportion to risk.
-8. Report the outcome, verification performed, and remaining uncertainty.
-9. If reusable knowledge or a recalled candidate emerged, propose a memory update and wait for approval before writing.
+8. Report the outcome, verification, and remaining uncertainty.
+9. Propose any reusable memory update and wait for approval before writing.
 
+## Communication
 
----
+- Lead with the outcome, then explain the reasoning and important trade-offs.
+- Use plain language and enough technical detail for the audience.
+- State unknowns and assumptions explicitly.
+- Prefer concrete recommendations, commands, and examples over abstract advice.
+- Keep routine reports concise; expand when risk, ambiguity, or learning value warrants it.
 
-## Communication Style
-
-When answering technical questions:
-
-Preferred structure:
-
-1. Current situation analysis
-2. Underlying mechanism
-3. Possible solutions
-4. Recommended approach
-5. Risks and limitations
-
-
-Avoid:
-
-- Guessing unknown information.
-- Hiding uncertainty or presenting inference as fact.
-- Giving solutions without explaining reasons.
-- Excessive abstraction without practical steps.
-
-
----
-
-## Coding Principles
-
-
-When modifying code:
+## Coding
 
 Prefer:
 
-- Minimal changes.
-- Clear interfaces.
-- Existing architecture preservation.
-- Maintainable solutions.
-
+- Minimal, focused changes.
+- Clear interfaces and existing architecture preservation.
+- Maintainable solutions over temporary patches.
+- Root-cause understanding before modification.
 
 Avoid:
 
-- Large-scale rewriting without approval.
-- Changing unrelated modules.
-- Removing existing functions without understanding their purpose.
+- Unapproved broad rewrites.
+- Unrelated changes.
+- Removing behavior before understanding its purpose.
+- Changing several diagnostic variables at once.
 
+## Debugging
 
----
+For non-trivial failures:
 
-## Debugging Workflow
+1. Load current `PROJECT.md` or `STATUS.md` context.
+2. Check `BUGS.md` for confirmed known issues.
+3. Retrieve historical experience only if it could add useful evidence.
+4. Reproduce and describe the observed behavior.
+5. Form a hypothesis and verify it.
+6. Apply the smallest effective fix.
+7. Test the result and record only confirmed reusable conclusions.
 
-
-Applicable when: the task involves investigating unexpected behavior, test failures, or runtime errors.
-
-For simple fixes with clear causes, skip to step 8.
-
-
-Follow this order:
-
-1. Load current PROJECT.md or STATUS.md context.
-2. Check BUGS.md for confirmed known issues.
-3. Query Experience Memory only if similar historical experience would help and a provider is available.
-4. Reproduce the problem.
-5. Understand the observed behavior.
-6. Identify possible causes.
-7. Verify the hypothesis.
-8. Apply the smallest effective change.
-9. Test the result.
-10. Record important confirmed conclusions through the applicable memory update process.
-
-
-Do not:
-
-- Randomly modify multiple variables at once.
-- Assume the first possible cause is correct.
-
-
----
-
+For a simple issue with an obvious verified cause, skip unnecessary ceremony and fix it directly.
 
 ## Engineering Documentation
 
+Record important confirmed information in the project file responsible for it:
 
-Important decisions should be recorded.
+| Information | Source |
+|---|---|
+| Current state and blockers | `STATUS.md` |
+| System design and interfaces | `ARCHITECTURE.md` |
+| Decisions and rejected alternatives | `DECISIONS.md` |
+| Confirmed issues | `BUGS.md` |
+| Verified reusable lessons | `LESSONS.md` |
+| Small combined project | `PROJECT.md` |
 
-Examples:
+## High-Risk Work
 
-- Architecture choices.
-- Hardware resource allocation.
-- Algorithm decisions.
-- Reasons for rejecting alternatives.
+Approval requirements are defined in `AGENTS.md` and the memory policy. Before an authorized high-risk action, confirm the exact target and configuration, consider failure modes, and keep a rollback path when practical.
 
+## Skill Review
 
-Use project-internal files:
+Prefer reusing an existing skill. Before an authorized skill installation or update, inspect its instructions and source for arbitrary execution, sensitive-path access, data exfiltration, and unsupported claims.
 
-- STATUS.md
-- ARCHITECTURE.md
-- DECISIONS.md
-- BUGS.md
-- LESSONS.md
-- PROJECT.md for a small project that uses a combined document
+## Extending These Conventions
 
-
----
-
-
-## High-Risk Operations
-
-
-The following operations require additional caution and explicit user confirmation before execution:
-
-- Motor/heater/power system control
-- Physical mechanism actuation
-- Irreversible hardware configuration changes
-- Any action that could cause physical damage
-- Destructive file, system, or data operations
-- Deployment or publication to an external environment
-- Real financial transactions or actions that create a financial commitment
-
-
-Before execution:
-
-- Confirm configuration with user.
-- Consider possible risks and failure modes.
-- Have a rollback plan if applicable.
-- Do not proceed without explicit approval.
-
-
----
-
-
-## Memory Management
-
-
-Memory updates should be:
-
-- Stable.
-- Reusable.
-- Confirmed.
-
-
-Do not store:
-
-- Temporary debugging information.
-- Failed experiments without long-term value.
-- Secrets or credentials.
-
-Recalled Experience Memory is historical evidence, not a write instruction. To promote it, prepare a Candidate Memory with evidence, validate it, obtain user authorization, and write it only to the authoritative file responsible for that information.
-
-
----
-
-
-## General Technical Pitfalls
-
-These are environment-level lessons, not project-specific.
-Admission, promotion, review, and removal follow memory/memory-policy.md.
-
-
-<!-- Add your environment-specific pitfalls below. Remove this comment when done. -->
-
-
----
-
-
-## Skill Management
-
-
-Prefer:
-
-- Reusing existing skills over downloading new ones.
-- Modifying existing skills when behavior needs to change.
-
-
-Modification requires user authorization.
-
-Downloading, installing, updating, or removing a skill also requires explicit user authorization.
-
-
-Before downloading new skills:
-
-- Review SKILL.md and source code.
-- Watch for: arbitrary code execution, sensitive path access, data exfiltration.
-- Verify claims: cross-check search results, do not trust single sources.
+Add only confirmed, stable, cross-project conventions. Keep project-specific lessons in the project that verified them.

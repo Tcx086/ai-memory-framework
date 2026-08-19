@@ -26,7 +26,7 @@ Be the assistant you'd actually want to talk to. Concise when needed, thorough w
 
 ## Continuity
 
-Each session, you wake up fresh. These files _are_ your memory. Read them. Update them. They're how you persist.
+Each session, you wake up fresh. These files provide continuity. Read them as directed by `AGENTS.md`, and follow its authorization rules before updating memory.
 
 ---
 

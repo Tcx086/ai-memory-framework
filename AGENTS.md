@@ -2,174 +2,75 @@
 
 ## Purpose
 
-This repository contains long-term AI collaboration memory and workflow rules.
+This repository provides long-term AI collaboration memory and workflow rules. Read this file at the start of every task; `memory/memory-policy.md` is the authoritative specification for definitions, exceptions, and update procedures.
 
-The goal is to provide stable context for AI assistants working with the user.
+## Memory Model
 
-## Memory Architecture
+| Layer | Contains | Rule |
+|---|---|---|
+| Governance | `AGENTS.md`, `memory/memory-policy.md`, `memory/conventions.md` | Defines behavior and permissions |
+| Authoritative | Confirmed Git Markdown facts, state, architecture, decisions, issues, and lessons | Source of truth within each file's responsibility |
+| Experience | Optional conversations, attempts, and extracted candidates | Historical evidence only; may be stale or wrong |
 
-AI-Memory uses three layers:
+Experience Memory cannot override or directly modify Governance or Authoritative Memory.
 
-- Layer 1 — Governance Memory: AGENTS.md, memory/memory-policy.md, and memory/conventions.md define behavior, permissions, loading, and conflict rules.
-- Layer 2 — Authoritative Memory: confirmed Git Markdown records user facts, project facts, current state, known issues, architecture, and decisions within each file's defined responsibility.
-- Layer 3 — Experience Memory: an optional external recall layer for conversations, attempts, historical experience, and automatically extracted candidates.
+## Loading
 
-Git Markdown remains the source of truth for governance and current authoritative facts. Experience Memory is historical evidence, not current fact. It cannot override or directly modify Governance or Authoritative Memory.
-
-TencentDB Agent Memory (TDAI) is the first optional Experience Memory Provider. Local SQLite adapters are available for OpenClaw and Codex; other hosts continue with Git Markdown only when no provider is available.
-
-### Controlled Collaboration Flow
-
-The two stores collaborate without becoming equal authorities:
-
-1. Load this repository's governance and the minimum relevant Authoritative Memory first.
-2. Use Experience Memory only when historical context materially helps; retrieve one focused Top-K set with at most 3 results.
-3. Validate recalled history against current authoritative files and label unresolved conflicts as uncertain.
-4. Let an authorized host capture and extract Experience Memory automatically, but never treat capture as confirmation.
-5. Promote a useful Experience Memory candidate only after validation and user authorization.
-
-Automatic capture does not authorize automatic recall for every task or automatic writes to Authoritative Memory.
-
----
-
-## Memory Loading Rules
-
-Memory loading follows a tiered strategy.
-Reference: memory/memory-policy.md is the authoritative source for memory management rules.
-
-### Bootstrap
-
-These files are loaded for every task:
-
-- AGENTS.md
-
-### Default
-
-No files at this level.
-
-### Conditional
-
-Load only when the task requires it:
-
-If the task involves modifying, reviewing, or resolving conflicts in memory:
-- memory/memory-policy.md
-
-If the task needs understanding user background:
-- memory/universal-memory.md
-
-If the task needs understanding collaboration conventions:
-- memory/conventions.md
-
-If the task involves a specific project:
-- Read memory/projects.md only when needed to locate or identify the project.
-- Read only the project documentation relevant to the current task.
-
-### Loading Principles
-
-- Only load information required for the current task.
-- Avoid loading all memory files by default.
-- Start small, expand when needed.
+- Load only what the current task requires; start small and expand on demand.
 - Establish current facts from Authoritative Memory before consulting Experience Memory.
-- Query an available Experience Memory Provider only when historical experience is useful, retrieve only a small relevant Top-K set, and validate it against Authoritative Memory.
-- When uncertain, load Bootstrap first, then expand on demand.
+- Load `memory/memory-policy.md` when reviewing, modifying, or resolving conflicts in memory.
+- Load `memory/universal-memory.md` only when user background is needed.
+- Load `memory/conventions.md` only when collaboration conventions are needed.
+- Load `memory/projects.md` only to locate or identify a project, then read the minimum relevant project documents.
+- Do not load all projects, historical records, or Experience Memory by default.
 
----
+## Core Behavior
 
-## Core Behavior Rules
+- Follow the current user instruction first.
+- Do not invent missing facts or present assumptions as confirmed.
+- Distinguish confirmed facts, inferences, historical evidence, and unknowns.
+- Ask when an unknown blocks progress, materially changes the result, or requires a user decision.
+- State any necessary non-blocking assumption and use the safest reasonable option.
+- Do not infer current project state or next goals from general memory; use the project's `STATUS.md` or `PROJECT.md` or ask the user.
+- Treat `memory/projects.md` as navigation, not technical truth.
 
-These rules are the always-loaded summary for every task.
-memory/memory-policy.md is the authoritative source for definitions, exceptions, and update procedures.
+## Experience Memory
 
-- Do not invent missing facts or present assumptions as confirmed information.
-- Distinguish confirmed facts, inferences, and unknowns.
-- If information cannot be verified, explicitly say what is unknown.
-- Ask the user when an unknown is blocking, materially changes the result, or requires a user decision.
-- If a non-blocking assumption is necessary, state it and use the safest reasonable option.
-- A one-time request or repeated observation is not automatically a long-term user preference.
-- When information may be useful as memory, propose an update; do not write it automatically.
-- Treat recalled Experience Memory as potentially stale or incorrect. If its relationship to current Authoritative Memory cannot be determined, mark it uncertain.
-- Local integration may expose `tdai_memory_search`, `tdai_conversation_search`, and `tdai_read_cos`. Use at most one search tool per task with no more than 3 results. The user has standing authorization for Experience Memory only: after a meaningful task, a host agent may automatically store at most one concise, confirmed, stable, reusable, and secret-free item. Skip routine chat, temporary debugging, and assumptions. This does not authorize writes to Governance or Authoritative Memory.
+- Query it only when historical context materially helps.
+- Use at most one search tool per task and return no more than 3 results.
+- Validate scope, date, supersession, and conflicts against Authoritative Memory.
+- Label unresolved recall as uncertain; continue without recall if no provider is available.
+- Automatic capture does not authorize automatic recall or authoritative writes.
+- Store Experience Memory only after explicit user authorization or under a separately confirmed bounded standing rule. Store at most one concise, confirmed, stable, reusable, secret-free item after a meaningful task; skip routine chat, temporary debugging, and assumptions. This never authorizes Governance or Authoritative Memory writes.
+- Promotion follows: Candidate -> validation -> user authorization -> Authoritative Memory.
 
-### Authorization Boundaries
+## Memory Updates
+
+- Memory is not a log. Store only confirmed, stable, reusable information; dynamic project documents follow the policy exception.
+- A one-time request or repeated observation is not automatically a lasting preference.
+- Never store passwords, API keys, tokens, private credentials, guesses, or temporary debugging attempts.
+- Before writing, propose the exact change, target file, reason, replacement or invalidation, and any sensitive information involved.
+- Modify Governance or Authoritative Memory only after explicit user approval, unless the current instruction already requests that exact change.
+- After writing, report what changed, why, and how consistency was verified.
+
+## Priority
+
+Current user instruction > Governance Memory > Authoritative Memory > Experience Memory > raw conversation history.
+
+Within a layer, follow the most specific applicable authority and then newer confirmed information. Project-specific governance is Governance Memory; project-internal current-state and technical documents are Authoritative Memory.
+
+## Approval Boundaries
 
 Obtain explicit user approval before:
 
 - Destructive file, system, or data operations.
-- Physical hardware actuation or actions that could cause physical damage.
-- Deployment or publication to an external environment.
-- Real financial transactions or commitments.
-- Downloading, installing, updating, modifying, or removing skills.
+- Physical actuation or actions that could cause damage.
+- External deployment or publication.
+- Financial transactions or commitments.
+- Installing, updating, modifying, or removing skills.
 
-Read-only inspection, analysis, and reversible local verification do not require additional approval unless another applicable rule says otherwise.
-
----
-
-## Priority Rules
-
-Follow this priority order:
-
-1. Current user instruction
-2. Governance Memory
-3. Authoritative Memory
-4. Experience Memory
-5. Raw conversation history
-
-Within a layer, follow the more specific applicable authority and then the newer confirmed information. Project-specific governance is Governance Memory; project-internal current-state and technical documents are Authoritative Memory.
-
----
-
-## Memory Rules
-
-Memory is not a log.
-
-Only record:
-
-- Stable user preferences
-- Confirmed engineering decisions
-- Reusable knowledge
-
-Do not record:
-
-- Passwords
-- API keys
-- Private credentials
-- Temporary debugging attempts
-- Unconfirmed assumptions
-
----
-
-## Modification Rules
-
-Memory changes use a two-step process:
-
-1. Propose the exact information, target file, reason, and any replacement of existing content.
-2. Modify memory only after the user explicitly approves or requests that change.
-
-Long-term memory must also be confirmed, stable, and reusable.
-Dynamic project documents such as STATUS.md follow the Dynamic Project Documents rules in memory/memory-policy.md and are not required to be long-term stable.
-
-Experience Memory findings must follow Memory Promotion: Candidate Memory -> validation -> user authorization -> Authoritative Memory. Recall alone never authorizes a write.
-
-When updating memory:
-
-Explain:
-- What changed
-- Why it changed
-- How it was verified
-
----
+Read-only inspection, analysis, and reversible local verification do not require additional approval unless another rule says otherwise.
 
 ## Engineering Style
 
-Prefer:
-
-- Understanding before modification
-- Minimal changes
-- Clear architecture
-- Maintainable solutions
-
-Avoid:
-
-- Unnecessary refactoring
-- Changing unrelated files
-- Guessing missing information
+Prefer understanding before modification, minimal changes, clear architecture, and maintainable solutions. Avoid unrelated refactoring and guessing missing information.

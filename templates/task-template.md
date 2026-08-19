@@ -1,202 +1,57 @@
 # Task Template
 
+## Task
 
-# Task Information
+- **ID:**
+- **Created:** YYYY-MM-DD
+- **Project:**
+- **Goal:**
 
+## Context
 
-Task ID:
+- **Background:**
+- **Requirements:**
+- **Constraints:**
+- **Related files:**
 
-
-
-
-Created Date:
-
-
-
-
-Project:
-
-
-
-
-# Goal
-
-
-Describe the final objective.
-
-Example:
-
-Improve motor control stability.
-
-
-
-# Background
-
-
-Explain the current situation.
-
-
-Include:
-
-- Current behavior
-- Existing design
-- Related history
-
-
-
-# Requirements
-
-
-Functional requirements:
-
-
-1.
-
-
-2.
-
-
-
-Non-functional requirements:
-
-
-- Performance
-- Reliability
-- Maintainability
-
-
-
-# Constraints
-
-
-Things that must not change.
-
-
-Examples:
-
-- Hardware configuration
-- Existing interfaces
-- Project architecture
-
-
-
-# Related Files
-
-
-Files involved:
-
-
--
-
-
-# Memory To Read
-
+## Context Sources
 
 Select only what the task requires:
 
+- **Governance:**
+- **Authoritative project files:**
+- **Experience Memory needed:** Yes / No
+- **Query scope, if used:**
 
-- Project index — only to locate or identify the project
-- STATUS.md — current state, goals, or blockers
-- ARCHITECTURE.md — system structure or interfaces
-- DECISIONS.md — prior design choices and trade-offs
-- BUGS.md — known issues
-- LESSONS.md — verified reusable experience
-- PROJECT.md — combined source for a small project
-- Experience Memory — optional historical evidence, only after current authoritative context is loaded and only when useful
+## Uncertainty
 
+- **Confirmed facts:**
+- **Inferences:**
+- **Unknowns:**
+- **Blocking question:**
+- **Non-blocking assumption:**
 
-Do not load every document by default.
-Do not query Experience Memory by default. If queried, retrieve only a small relevant Top-K set and check it against the authoritative files above.
+## Plan
 
-
-# Experience Memory Review
-
-
-- Historical experience needed: Yes / No
-- Provider available: Yes / No
-- Query scope and Top-K:
-- Recalled items used as historical evidence:
-- Stale or conflicting items:
-- Authoritative source that resolved each conflict:
-- Candidate Memory requiring validation or promotion:
-
-
-# Uncertainty Review
-
-
-- Confirmed facts:
-- Inferences:
-- Unknowns:
-- Blocking question, if any:
-- Non-blocking assumption, if any:
-
-
-
-# Execution Plan
-
-
-For non-trivial tasks, the AI should provide a plan before implementation.
-
-Simple tasks (clear single-step fixes, direct configuration changes) may skip planning.
-
-
-Steps:
-
+For a non-trivial task:
 
 1.
-
-
 2.
-
-
 3.
 
+## Verification
 
+- **Required checks:**
+- **Expected result:**
+- **Risk:** Low / Medium / High
+- **Rollback, if needed:**
 
-# Testing Requirements
+## Completion
 
+- **Changes made:**
+- **Files modified:**
+- **Checks performed:**
+- **Remaining issues:**
+- **Reusable memory candidate:** None / Describe candidate and evidence
 
-Required verification:
-
-
-- Build result
-- Runtime test
-- Expected behavior
-
-
-
-# Risk Assessment
-
-
-Potential risks:
-
-
-Low / Medium / High
-
-
-Details:
-
-
-
-# Result
-
-
-After completion, report:
-
-
-## Changes Made
-
-
-## Files Modified
-
-
-## Test Results
-
-
-## Remaining Issues
-
-
-## Memory Update Needed
-
-
-## Candidate Memory, if any
+Do not query history or load every document by default. A memory candidate is not authoritative until it passes the policy's validation and authorization flow.

@@ -1,93 +1,47 @@
 # Memory Changelog
 
+This file records version-level governance and framework changes. Git history holds line-level detail.
 
-This file records important changes to the AI memory system.
+## 2026-08-19 V1.2 Documentation Simplification
 
+Changes:
 
-Purpose:
+- Reduced `memory/memory-policy.md` from 618 lines to a compact authoritative policy.
+- Reduced `AGENTS.md` to an always-loaded behavior summary.
+- Removed repeated governance text from conventions, templates, and workspace documentation.
+- Removed the private standing-write assumption from the public Experience Memory defaults.
+- Aligned the OpenClaw workspace example with current bootstrap files and explicit authority boundaries.
+- Moved provider-generated samples under `examples/tdai/`.
 
-- Track why memory structure changes.
-- Keep memory evolution understandable.
-- Avoid unexplained modifications.
+Reason: lower onboarding and context cost without changing the framework's authority model.
 
-
----
-
-
-# Changes
-
-
----
-
+Impact: users and agents can find operational rules faster while detailed examples remain available at their point of use.
 
 ## 2026-08-18 V1.1 Codex TDAI Adapter
 
-Upgraded Codex local TDAI MCP server.
-
 Changes:
 
-- Added `tdai_experience_store` tool for explicit user-authorized memory writes.
-- Switched from LIKE fallback to FTS5 full-text search with LIKE as fallback.
-- Added path traversal and sensitive content security checks.
-- Added comprehensive integration test suite (14 tests).
-- Added `package.json` with Node.js 22.5+ engine requirement.
+- Added `tdai_experience_store` for authorized Experience Memory writes.
+- Added FTS5 search with a LIKE fallback.
+- Added path traversal and sensitive-content checks.
+- Added integration tests and the Node.js 22.5+ requirement.
 
-Reason:
+Reason: improve Codex search quality, security, and testability.
 
-Improve search quality, security, and testability for the Codex integration.
-
-Impact:
-
-Codex users can now store authorized experiences. Search results are ranked by FTS5 relevance.
-
-
----
-
+Impact: Codex can search and store bounded authorized experience through the local adapter.
 
 ## 2026-08-18 V1.0 Framework Release
 
-Initial release of the AI-Memory dual-store collaboration framework.
-
 Changes:
 
-- Defined three-layer architecture: Governance, Authoritative, and Experience Memory.
-- Established controlled collaboration flow with authoritative-first loading.
-- Added bounded on-demand historical recall (Top-K 3, one search per task).
-- Created memory policy, conventions, project templates, and integration guides.
-- Added workspace example files for OpenClaw integration.
-- Added TDAI example structure with experience contract and scene blocks.
+- Defined Governance, Authoritative, and Experience Memory.
+- Established authoritative-first loading and bounded historical recall.
+- Added policy, conventions, project templates, workspace examples, and integration guides.
 
-Reason:
+Reason: provide a reusable dual-store framework for long-term AI-human collaboration.
 
-Provide a reusable framework for long-term AI-human collaboration memory, combining Git Markdown authority with optional experience memory.
+Impact: recalled history cannot override or directly update authoritative files.
 
-Impact:
+## Entry Format
 
-Agents must establish current facts from Governance and Authoritative Memory before optional historical recall. Recalled experience cannot override or directly update authoritative files.
-
-
----
-
-
-# Format
-
-
-For future updates:
-
-
-## YYYY-MM-DD
-
-
-Change:
-
-What was modified?
-
-
-Reason:
-
-Why was this change needed?
-
-
-Impact:
-
-What behavior or workflow does this affect?
+Use `## YYYY-MM-DD Version — Title`, followed by concise **Changes**, **Reason**, and **Impact** sections.

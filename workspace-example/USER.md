@@ -1,11 +1,11 @@
-# USER.md - About Your Human
+# USER.md - Workspace User Profile
 
-- **Name:** <!-- Your name -->
-- **What to call them:** <!-- Preferred address -->
+> OpenClaw loads this file as workspace context. Keep it small; confirmed stable profile facts and preferences belong in AI-Memory `memory/universal-memory.md`, which wins conflicts.
+
+- **Name:**
+- **Preferred address:**
 - **Pronouns:**
-- **Timezone:** <!-- e.g. Asia/Shanghai -->
-- **Notes:**
+- **Timezone:**
+- **Workspace-specific notes:**
 
-## Context
-
-<!-- Add relevant context about yourself -->
+Do not copy secrets, full project history, or unconfirmed assumptions here.
