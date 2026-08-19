@@ -30,10 +30,7 @@ Restart the local Codex client or start a new session after changing MCP configu
 
 ## Operating Rule
 
-1. Load `AGENTS.md` and the minimum relevant authoritative Markdown.
-2. Query one TDAI search tool only when historical experience materially helps; request at most 3 results.
-3. Treat every result as potentially stale and validate it against authoritative Markdown.
-4. Continue with Markdown if the adapter is unavailable or no memory matches.
+Follow the root `AGENTS.md` and `memory/memory-policy.md`. Git Markdown is authoritative; recalled experience is historical evidence only.
 
 ## Server Implementation
 

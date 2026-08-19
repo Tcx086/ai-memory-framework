@@ -11,14 +11,6 @@
 
 **Rule:** establish the present from authoritative Markdown, then consult history only when useful.
 
-## Start a Task
-
-1. Read the external AI-Memory `AGENTS.md`.
-2. Identify the task and project.
-3. Load only the authoritative files the task needs.
-4. Query at most one Experience Memory search tool, with no more than 3 results, only when history materially helps.
-5. Validate recalled evidence for scope, date, supersession, and conflicts.
-
 ## What to Read
 
 | Need | Source |
@@ -29,12 +21,6 @@
 | Design | `ARCHITECTURE.md` and `DECISIONS.md` |
 | Known issue | `BUGS.md` |
 | Verified project lesson | `LESSONS.md` |
-
-## Update Memory
-
-`Candidate -> validation -> user authorization -> responsible authoritative file`
-
-Before writing, state the exact content, target, reason, replacement or invalidation, evidence, and any sensitive information. Never promote recalled history directly.
 
 ## Workspace Files
 
@@ -47,8 +33,4 @@ Before writing, state the exact content, target, reason, replacement or invalida
 | `TOOLS.md` | Local tool notes |
 | `MEMORY.md` | Optional non-authoritative bootstrap cache |
 
-## Safety
-
-- Never store passwords, API keys, tokens, or private credentials.
-- Confirm destructive, external, physical, financial, and skill-management actions.
-- When sources conflict: current user instruction > Governance > Authoritative > Experience > raw history.
+For loading rules, query limits, update flow, priority hierarchy, and safety boundaries, see the external `AGENTS.md` and `memory/memory-policy.md`.

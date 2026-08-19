@@ -16,7 +16,7 @@
 
 ## Context Sources
 
-Select only what the task requires:
+Select only what the task requires (see `memory/memory-policy.md` for loading rules):
 
 - **Governance:**
 - **Authoritative project files:**
@@ -24,6 +24,8 @@ Select only what the task requires:
 - **Query scope, if used:**
 
 ## Uncertainty
+
+Classify as confirmed / inferred / unknown per `memory/memory-policy.md`:
 
 - **Confirmed facts:**
 - **Inferences:**
@@ -54,4 +56,4 @@ For a non-trivial task:
 - **Remaining issues:**
 - **Reusable memory candidate:** None / Describe candidate and evidence
 
-Do not query history or load every document by default. A memory candidate is not authoritative until it passes the policy's validation and authorization flow.
+Memory candidates follow the promotion flow in `memory/memory-policy.md`.

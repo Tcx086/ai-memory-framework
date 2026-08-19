@@ -54,19 +54,6 @@ For non-trivial failures:
 
 For a simple issue with an obvious verified cause, skip unnecessary ceremony and fix it directly.
 
-## Engineering Documentation
-
-Record important confirmed information in the project file responsible for it:
-
-| Information | Source |
-|---|---|
-| Current state and blockers | `STATUS.md` |
-| System design and interfaces | `ARCHITECTURE.md` |
-| Decisions and rejected alternatives | `DECISIONS.md` |
-| Confirmed issues | `BUGS.md` |
-| Verified reusable lessons | `LESSONS.md` |
-| Small combined project | `PROJECT.md` |
-
 ## High-Risk Work
 
 Approval requirements are defined in `AGENTS.md` and the memory policy. Before an authorized high-risk action, confirm the exact target and configuration, consider failure modes, and keep a rollback path when practical.

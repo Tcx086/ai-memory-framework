@@ -52,4 +52,4 @@ Summarize the goal and completed result.
 - **User preference:** No / Describe and target `universal-memory.md`
 - **Experience candidate:** No / Describe source and validation
 
-If an update is needed, propose the exact content, target, reason, replacement or invalidation, evidence, and sensitive-data status. Record it only after the required user authorization; otherwise leave authoritative memory unchanged.
+Memory updates follow the promotion flow in `memory/memory-policy.md`; record only after user authorization.

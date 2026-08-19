@@ -4,14 +4,7 @@ This integration runs TencentDB Agent Memory locally with SQLite. Tencent Cloud 
 
 ## Boundary
 
-- Git Markdown remains the source of truth.
-- Recalled memory is historical evidence only.
-- Load the minimum authoritative Markdown before recall.
-- Query memory only when history materially helps.
-- Use one search tool per task with at most 3 results.
-- If recall conflicts with authoritative Markdown, Markdown wins.
-- If recall fails or returns nothing, continue with Markdown.
-- Experience Memory never writes Governance or Authoritative Memory directly.
+All operating rules follow the root `AGENTS.md` and `memory/memory-policy.md`. Git Markdown is authoritative; recalled experience is historical evidence only.
 
 ## Setup
 

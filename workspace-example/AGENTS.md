@@ -12,26 +12,7 @@ Read `<your-ai-memory-path>/AGENTS.md` first. This workspace file is supplementa
 - `TOOLS.md` — local tool and environment notes.
 - `MEMORY.md` — optional bootstrap cache, never a source of truth.
 
-## Memory Loading
-
-1. Load only the minimum authoritative Markdown needed for the task.
-2. Query Experience Memory only when history materially helps.
-3. Use at most one search tool per task and no more than 3 results.
-4. Treat recall as historical evidence; authoritative Markdown wins conflicts.
-5. Continue without recall when the provider is unavailable.
-
-## Memory Updates
-
-- Long-term memory: propose -> user approval -> write to the responsible authoritative file.
-- Do not silently modify memory or treat workspace cache files as authority.
-- After writing, report what changed, why, and how it was verified.
-
-## Safety
-
-- Keep private data private.
-- Confirm destructive or external actions before execution.
-- Prefer recoverable operations.
-- Ask when uncertainty blocks progress or materially changes the result.
+All memory loading, query, update, safety, and priority rules are defined in the external `AGENTS.md` and `memory/memory-policy.md`.
 
 ## Communication
 
