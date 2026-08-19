@@ -1,5 +1,7 @@
 # Task Template
 
+> Loading, classification, query, and promotion rules: see `<ai-memory-path>/memory/memory-policy.md`.
+
 ## Task
 
 - **ID:**
@@ -16,7 +18,7 @@
 
 ## Context Sources
 
-Select only what the task requires (see `memory/memory-policy.md` for loading rules):
+Select only what the task requires:
 
 - **Governance:**
 - **Authoritative project files:**
@@ -25,7 +27,7 @@ Select only what the task requires (see `memory/memory-policy.md` for loading ru
 
 ## Uncertainty
 
-Classify as confirmed / inferred / unknown per `memory/memory-policy.md`:
+Classify as confirmed / inferred / unknown:
 
 - **Confirmed facts:**
 - **Inferences:**
@@ -56,4 +58,4 @@ For a non-trivial task:
 - **Remaining issues:**
 - **Reusable memory candidate:** None / Describe candidate and evidence
 
-Memory candidates follow the promotion flow in `memory/memory-policy.md`.
+Memory candidates follow the promotion flow in the policy.

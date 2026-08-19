@@ -24,10 +24,10 @@ All operating rules follow the root `AGENTS.md` and `memory/memory-policy.md`. G
 
    See `openclaw.config.fragment.example.json` for the exact structure.
 
-4. Add this rule to the isolated agent workspace `AGENTS.md`:
+4. Add a rule to the isolated agent workspace `AGENTS.md`:
 
    ```text
-   Read the AI-Memory AGENTS.md first. Load only required authoritative Markdown. Query Experience Memory only when useful, once per task, limit 3. Treat recall as historical evidence; Markdown wins conflicts. Continue without recall if the provider is unavailable.
+   Read <ai-memory-path>/AGENTS.md and follow its rules.
    ```
 
 5. Restart and verify:
