@@ -21,10 +21,11 @@ Experience Memory must not define current state, override higher layers, or dire
 ## Controlled Store Collaboration
 
 1. Establish current truth from Governance and the minimum relevant Authoritative Memory.
-2. Retrieve Experience Memory only when historical context materially helps.
+2. Retrieve Experience Memory only when historical context materially helps. One retrieval round may use one search tool and return at most 3 items.
 3. Check recalled evidence for scope, date, supersession, and conflict.
-4. Label unresolved recall as uncertain and do not use it to update current state.
-5. Promote a reusable candidate only after validation and user authorization.
+4. Present every returned item with its relevant content and available source, date, scope, and conflict or uncertainty notes.
+5. Stop and ask whether the user wants another retrieval round. Do not search again without explicit approval; if nothing matched, report that before asking.
+6. Promote a reusable candidate only after validation and user authorization.
 
 Automatic capture and automatic recall are separate permissions. Enabling capture does not authorize querying or injecting history into every task. A workspace `MEMORY.md` may cache small bootstrap context, but it must declare its boundary and defer to the responsible authoritative file.
 
@@ -69,8 +70,8 @@ Build context in this order:
 1. Load `AGENTS.md` and identify the task and project.
 2. Load the minimum relevant Authoritative Memory.
 3. Decide whether historical experience is needed.
-4. If useful and available, retrieve one small, focused result set.
-5. Validate it against current authoritative sources.
+4. If useful and available, run one bounded retrieval round.
+5. Validate and present its results, then wait for user approval before another round.
 6. Label confirmed facts, historical evidence, inferences, and unknowns before acting.
 
 ## Information and Writing Rules

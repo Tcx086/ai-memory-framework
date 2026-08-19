@@ -10,6 +10,7 @@ Changes:
 - Reduced `AGENTS.md` to an always-loaded behavior summary.
 - Removed repeated governance text from conventions, templates, and workspace documentation.
 - Removed the private standing-write assumption from the public Experience Memory defaults.
+- Replaced the one-query-per-task rule with user-controlled retrieval rounds: one search tool, at most 3 results, present every result, then ask before continuing.
 - Aligned the OpenClaw workspace example with current bootstrap files and explicit authority boundaries.
 - Moved provider-generated samples under `examples/tdai/`.
 

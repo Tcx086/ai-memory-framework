@@ -82,8 +82,9 @@ ai-memory-framework/
 ```text
 加载 AGENTS.md
   → 读取任务所需的最小权威记忆
-  → 必要时查询一次经验记忆（最多 3 条）
-  → 对照权威文件验证历史结果
+  → 必要时进行一轮经验检索（1 个搜索工具，最多 3 条）
+  → 展示每条相关内容及来源、日期、范围和冲突说明
+  → 由用户决定是否继续下一轮
   → 区分已确认、历史证据、推断和未知
 ```
 
@@ -107,7 +108,7 @@ ai-memory-framework/
 将下面的引导规则放进工作区 `AGENTS.md`：
 
 ```markdown
-先读 <你的 ai-memory 路径>/AGENTS.md，遵循其中的加载、查询、更新和安全规则。
+先读 <你的 ai-memory 路径>/AGENTS.md，并遵循其中的加载、经验检索和写入规则。
 ```
 
 OpenClaw 用户可以复制 `workspace-example/`，再填写其中的身份、用户和工具信息。`USER.md` 与 `MEMORY.md` 只是工作区上下文；稳定事实仍以 AI-Memory 中负责该信息的文件为准。

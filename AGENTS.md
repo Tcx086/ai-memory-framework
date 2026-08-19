@@ -37,9 +37,11 @@ Experience Memory cannot override or directly modify Governance or Authoritative
 ## Experience Memory
 
 - Query it only when historical context materially helps.
-- Use at most one search tool per task and return no more than 3 results.
+- Each retrieval round may use at most one search tool and return no more than 3 results.
 - Validate scope, date, supersession, and conflicts against Authoritative Memory.
 - Label unresolved recall as uncertain; continue without recall if no provider is available.
+- After each round, show the relevant content of every returned item, including available source, date, scope, and conflict or uncertainty notes.
+- Stop after presenting the results and ask whether the user wants another retrieval round. Do not search again without explicit approval.
 - Automatic capture does not authorize automatic recall or authoritative writes.
 - Store Experience Memory only after explicit user authorization or under a separately confirmed bounded standing rule. Store at most one concise, confirmed, stable, reusable, secret-free item after a meaningful task; skip routine chat, temporary debugging, and assumptions. This never authorizes Governance or Authoritative Memory writes.
 - Promotion follows: Candidate -> validation -> user authorization -> Authoritative Memory.
