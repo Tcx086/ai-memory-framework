@@ -37,7 +37,7 @@ Restart the local Codex client or start a new session after changing MCP configu
 
 ## Server Implementation
 
-See `server.mjs` for the MCP server implementation. It wraps the local SQLite database and exposes the three tools above.
+See `server.mjs` for the MCP server implementation. It wraps the local SQLite database and exposes the four tools above.
 
 ## Requirements
 
@@ -48,6 +48,8 @@ See `server.mjs` for the MCP server implementation. It wraps the local SQLite da
 
 Run the integration test:
 
-```powershell
-node --test .\server.integration.test.mjs
+```bash
+node --test server.integration.test.mjs
+# or
+npm test
 ```

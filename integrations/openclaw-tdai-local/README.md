@@ -18,7 +18,7 @@ This integration runs TencentDB Agent Memory locally with SQLite. Tencent Cloud 
 1. Install and pin the plugin:
 
    ```powershell
-   openclaw plugins install "@tencentdb-agent-memory/memory-tencentdb@1.0.1" --pin
+   openclaw plugins install "@tencentdb-agent-memory/memory-tencentdb" --pin
    ```
 
 2. Create an isolated agent with your existing model:

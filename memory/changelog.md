@@ -20,6 +20,30 @@ Purpose:
 ---
 
 
+## 2026-08-18 V1.1 Codex TDAI Adapter
+
+Upgraded Codex local TDAI MCP server.
+
+Changes:
+
+- Added `tdai_experience_store` tool for explicit user-authorized memory writes.
+- Switched from LIKE fallback to FTS5 full-text search with LIKE as fallback.
+- Added path traversal and sensitive content security checks.
+- Added comprehensive integration test suite (14 tests).
+- Added `package.json` with Node.js 22.5+ engine requirement.
+
+Reason:
+
+Improve search quality, security, and testability for the Codex integration.
+
+Impact:
+
+Codex users can now store authorized experiences. Search results are ranked by FTS5 relevance.
+
+
+---
+
+
 ## 2026-08-18 V1.0 Framework Release
 
 Initial release of the AI-Memory dual-store collaboration framework.
