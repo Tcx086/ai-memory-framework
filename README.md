@@ -4,203 +4,203 @@
 [![GitHub stars](https://img.shields.io/github/stars/hczxy05/ai-memory-framework?style=social)](https://github.com/hczxy05/ai-memory-framework)
 [![GitHub issues](https://img.shields.io/github/issues/hczxy05/ai-memory-framework)](https://github.com/hczxy05/ai-memory-framework/issues)
 
-A dual-store AI memory architecture combining **authoritative Git Markdown** with **experience memory** for long-term AI-human collaboration.
+双库 AI 记忆架构：**Git Markdown 权威记忆** + **经验记忆**，实现长期 AI-人类协作。
 
-> **One line**: AI-Memory manages *what is true now*; TDAI recalls *what happened before*. Confirm the present, then reference the past.
-
----
-
-## Why This Exists
-
-AI assistants lose context between sessions. This framework solves that with two complementary stores:
-
-1. **Authoritative Memory (Git Markdown)** — confirmed facts, rules, architecture, decisions. Human-readable, version-controlled, always the source of truth.
-2. **Experience Memory (TDAI)** — automatically captured conversations, extracted lessons, scene narratives, and persona profiles. Historical evidence that may be stale.
-
-The two stores collaborate without becoming equal authorities.
+> **一句话**：AI-Memory 管理*现在的事实*；TDAI 回忆*过去发生过什么*。先确认当下，再参考历史。
 
 ---
 
-## Architecture
+## 为什么做这个
+
+AI 助手在会话之间丢失上下文。本框架用两个互补的存储解决这个问题：
+
+1. **权威记忆（Git Markdown）** — 已确认的事实、规则、架构、决策。人类可读、版本控制，永远是真相源。
+2. **经验记忆（TDAI）** — 自动捕获的对话、提取的教训、场景叙事、用户画像。历史证据，可能过时。
+
+两个存储协同工作，但不等权。
+
+---
+
+## 架构
 
 ```
 ┌─────────────────────────────────────────────────────┐
-│                   User Instruction                   │
+│                    用户指令                          │
 └──────────────────────────┬──────────────────────────┘
                            ▼
 ┌─────────────────────────────────────────────────────┐
-│              Governance Memory (L1)                  │
+│              治理记忆 (L1)                           │
 │   AGENTS.md · memory-policy.md · conventions.md     │
 └──────────────────────────┬──────────────────────────┘
                            ▼
 ┌─────────────────────────────────────────────────────┐
-│           Authoritative Memory (L2)                  │
+│              权威记忆 (L2)                           │
 │   universal-memory.md · projects.md                  │
-│   Project: STATUS · ARCHITECTURE · DECISIONS · BUGS  │
+│   项目: STATUS · ARCHITECTURE · DECISIONS · BUGS     │
 └──────────────────────────┬──────────────────────────┘
                            ▼
 ┌─────────────────────────────────────────────────────┐
-│            Experience Memory (L3) — Optional         │
-│   TDAI: conversations · structured memory            │
-│         scene_blocks · persona                       │
+│            经验记忆 (L3) — 可选                      │
+│   TDAI: 对话 · 结构化记忆                            │
+│         场景块 · 用户画像                            │
 └─────────────────────────────────────────────────────┘
 ```
 
-**Priority**: Current Instruction > Governance > Authoritative > Experience > Raw History
+**优先级**：当前指令 > 治理 > 权威 > 经验 > 原始历史
 
 ---
 
-## Repository Structure
+## 仓库结构
 
 ```
 ai-memory-framework/
-├── AGENTS.md                    # Bootstrap rules (always load first)
-├── README.md                    # This file
+├── AGENTS.md                    # 引导规则（每次必须加载）
+├── README.md                    # 本文件
 │
 ├── memory/
-│   ├── memory-policy.md         # Authoritative memory management spec
-│   ├── conventions.md           # Collaboration conventions
-│   ├── universal-memory.md      # User profile template (fill your own)
-│   ├── projects.md              # Project index template
-│   └── changelog.md             # Framework changelog
+│   ├── memory-policy.md         # 权威记忆管理规范
+│   ├── conventions.md           # 协作约定
+│   ├── universal-memory.md      # 用户画像模板（自行填写）
+│   ├── projects.md              # 项目索引模板
+│   └── changelog.md             # 框架变更日志
 │
 ├── templates/
 │   ├── project-template.md      # STATUS / ARCHITECTURE / DECISIONS / BUGS / LESSONS
-│   ├── task-template.md         # Task tracking template
-│   └── report-template.md       # Task completion report template
+│   ├── task-template.md         # 任务跟踪模板
+│   └── report-template.md       # 任务完成报告模板
 │
 ├── integrations/
-│   ├── openclaw-tdai-local/     # OpenClaw + local SQLite TDAI setup
-│   └── codex-tdai-local/        # Codex + local SQLite TDAI adapter
+│   ├── openclaw-tdai-local/     # OpenClaw + 本地 SQLite TDAI 配置
+│   └── codex-tdai-local/        # Codex + 本地 SQLite TDAI 适配器
 │
-├── workspace-example/           # Example OpenClaw workspace files
-│   ├── AGENTS.md                # Workspace-level agent instructions
-│   ├── MEMORY.md                # Minimal bootstrap cache
-│   ├── SOUL.md                  # Persona / tone
-│   ├── USER.md                  # User info template
-│   └── memory-manual.md         # User-facing memory system manual
+├── workspace-example/           # OpenClaw 工作区示例文件
+│   ├── AGENTS.md                # 工作区级 agent 指令
+│   ├── MEMORY.md                # 最小引导缓存
+│   ├── SOUL.md                  # 人格 / 语气
+│   ├── USER.md                  # 用户信息模板
+│   └── memory-manual.md         # 面向用户的记忆系统手册
 │
-└── tdai-example/                # Example TDAI data structure
-    ├── persona.md               # Example persona (L3)
+└── tdai-example/                # TDAI 数据结构示例
+    ├── persona.md               # 用户画像示例 (L3)
     ├── .metadata/
     │   └── experience_contract.json
     └── scene_blocks/
-        └── example-scene.md     # Example scene block (L2)
+        └── example-scene.md     # 场景块示例 (L2)
 ```
 
 ---
 
-## Quick Start
+## 快速开始
 
-### 1. Copy the Authoritative Store
+### 1. 克隆权威记忆库
 
 ```bash
 git clone <this-repo> ~/ai-memory
 ```
 
-Edit the files in `memory/` to match your profile:
-- `universal-memory.md` — your identity, preferences, communication style
-- `projects.md` — your project index
-- `conventions.md` — your engineering conventions
+编辑 `memory/` 下的文件以匹配你的信息：
+- `universal-memory.md` — 身份、偏好、沟通风格
+- `projects.md` — 项目索引
+- `conventions.md` — 工程约定
 
-### 2. Set Up Experience Memory (Optional)
+### 2. 配置经验记忆（可选）
 
-Follow `integrations/openclaw-tdai-local/README.md` to install the TDAI plugin for OpenClaw, or `integrations/codex-tdai-local/README.md` for Codex.
+参考 `integrations/openclaw-tdai-local/README.md` 为 OpenClaw 安装 TDAI 插件，或参考 `integrations/codex-tdai-local/README.md` 为 Codex 配置。
 
-### 3. Configure Your Agent
+### 3. 配置你的 Agent
 
-Add to your agent's workspace `AGENTS.md`:
+在 agent 工作区的 `AGENTS.md` 中添加：
 
 ```markdown
-Read <your-ai-memory-path>/AGENTS.md first.
-Load only required authoritative Markdown.
-Query Experience Memory only when useful, once per task, limit 3.
-Treat recall as historical evidence; Markdown wins conflicts.
+先读 <你的 ai-memory 路径>/AGENTS.md。
+只加载当前任务需要的权威 Markdown。
+仅在有帮助时查询经验记忆，每次任务最多一次，最多 3 条。
+召回内容视为历史证据；冲突时以 Markdown 为准。
 ```
 
-### 4. Set Up Workspace Files
+### 4. 设置工作区文件
 
-Copy `workspace-example/` files to your agent workspace and customize:
-- `MEMORY.md` — minimal bootstrap context (not a source of truth)
-- `USER.md` — your info
-- `SOUL.md` — agent personality
+将 `workspace-example/` 下的文件复制到 agent 工作区并自定义：
+- `MEMORY.md` — 最小引导上下文（不是真相源）
+- `USER.md` — 你的信息
+- `SOUL.md` — agent 人格
 
 ---
 
-## Core Principles
+## 核心原则
 
-### Small Context
-Only load what the current task requires. Start small, expand on demand.
+### 小上下文
+只加载当前任务需要的内容。从小开始，按需扩展。
 
-### Layered Authority
-Governance rules > Authoritative facts > Experience evidence. No exceptions.
+### 分层权威
+治理规则 > 权威事实 > 经验证据。没有例外。
 
-### Controlled Memory
-Memory updates must be stable, reusable, confirmed, and user-authorized. Never store secrets.
+### 受控记忆
+记忆更新必须稳定、可复用、已确认、经用户授权。永远不存密钥。
 
-### Honest Uncertainty
-Distinguish confirmed facts, inferences, and unknowns. State unknowns instead of guessing.
+### 诚实不确定
+区分已确认事实、推断和未知。遇到未知就说未知，不猜。
 
-### Human Control
-Ask before destructive operations, deployments, financial actions, and memory modifications.
-
----
-
-## How It Works in Practice
-
-### Session Startup
-```
-Agent loads AGENTS.md (bootstrap)
-  → Reads minimum Authoritative Memory for the task
-  → Optionally queries Experience Memory (Top-K 3)
-  → Validates recall against Authoritative Memory
-  → Works with confirmed facts, labels historical evidence
-```
-
-### Memory Update Flow
-```
-Candidate identified
-  → Propose: exact content, target file, reason
-  → User approves
-  → Write to Authoritative Memory
-  → Report: what changed, why, how verified
-```
-
-### Experience Memory Promotion
-```
-TDAI recall → Candidate Memory → Validation → User Authorization → Authoritative Memory
-```
+### 人类控制
+破坏性操作、部署、财务行为和记忆修改前必须询问。
 
 ---
 
-## Customization
+## 实际运作
 
-### Adding a New Project
-1. Create `STATUS.md` (and optionally `ARCHITECTURE.md`, `DECISIONS.md`, `BUGS.md`, `LESSONS.md`) inside the project repo using templates from `templates/`.
-2. Add an entry to `memory/projects.md`.
+### 会话启动
+```
+Agent 加载 AGENTS.md（引导）
+  → 读取当前任务所需的最小权威记忆
+  → 可选查询经验记忆（Top-K 3）
+  → 将召回内容与权威记忆交叉验证
+  → 以已确认事实工作，标记历史证据
+```
 
-### Adding Conventions
-Edit `memory/conventions.md`. Follow the admission rules: stable, reusable, confirmed, user-authorized.
+### 记忆更新流程
+```
+发现候选内容
+  → 提议：具体内容、目标文件、理由
+  → 用户批准
+  → 写入权威记忆
+  → 报告：改了什么、为什么改、如何验证
+```
 
-### Changing Governance
-Edit `AGENTS.md` or `memory/memory-policy.md`. Governance changes require explicit user authorization.
+### 经验记忆晋升
+```
+TDAI 召回 → 候选记忆 → 验证 → 用户授权 → 权威记忆
+```
 
 ---
 
-## Compatible Platforms
+## 自定义
 
-- **OpenClaw** — full integration with TDAI plugin
-- **Codex** — MCP adapter for local TDAI access
-- **Any AI assistant** — the Git Markdown governance works standalone without TDAI
+### 添加新项目
+1. 在项目仓库中使用 `templates/` 下的模板创建 `STATUS.md`（可选 `ARCHITECTURE.md`、`DECISIONS.md`、`BUGS.md`、`LESSONS.md`）。
+2. 在 `memory/projects.md` 中添加条目。
+
+### 添加约定
+编辑 `memory/conventions.md`。遵循准入规则：稳定、可复用、已确认、经用户授权。
+
+### 修改治理规则
+编辑 `AGENTS.md` 或 `memory/memory-policy.md`。治理变更需要用户明确授权。
 
 ---
 
-## License
+## 兼容平台
 
-MIT — Use this framework as a starting point for your own AI memory system.
+- **OpenClaw** — 通过 TDAI 插件完整集成
+- **Codex** — MCP 适配器接入本地 TDAI
+- **任意 AI 助手** — Git Markdown 治理可独立使用，无需 TDAI
 
 ---
 
-## Credits
+## 许可证
 
-Built through iterative human-AI collaboration. The framework evolved from real engineering work across embedded systems, robotics, computer vision, and brain imaging projects.
+MIT — 将此框架作为你自己的 AI 记忆系统的起点。
+
+---
+
+## 致谢
+
+通过迭代的人机协作构建。框架源自嵌入式系统、机器人、计算机视觉和脑成像项目的真实工程实践。
