@@ -44,6 +44,20 @@ Reason: provide a reusable dual-store framework for long-term AI-human collabora
 
 Impact: recalled history cannot override or directly update authoritative files.
 
+## 2026-08-20 V1.7 Authority Refinement + Rule Convergence
+
+Changes:
+
+- Adjusted authority levels: Rules (Level 1) > Project (Level 2) > Personal (Level 3)
+- Rules are governance, not preference — user preference cannot bypass safety rules
+- Converged AGENTS.md: removed duplicated rules, kept as lean entry point
+- AGENTS.md now ~80 lines (was ~120), all details point to memory-policy.md
+- Updated all authority references across memory-policy.md, README.md, memory-manual.md
+
+Reason: Rules and Personal were at the same level, but they have different natures. Rules = governance ("confirm before delete"), Personal = preference ("I like fast action"). Governance must win. Also, AGENTS.md and memory-policy.md had significant overlap — new agents were reading the same rules twice.
+
+Impact: Cleaner authority hierarchy. AGENTS.md is now a true entry point: read it to understand the system, follow links for details.
+
 ## 2026-08-20 V1.6.1 Project Index Template
 
 Changes:

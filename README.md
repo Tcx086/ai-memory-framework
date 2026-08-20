@@ -63,11 +63,12 @@ When multiple agents produce conflicting information, the authority system deter
 | Level | Source | Rule |
 |---|---|---|
 | 0 | User Instruction | Highest — overrides everything |
-| 1 | Project Memory (`STATUS.md`, `ARCHITECTURE.md`, `DECISIONS.md`) | Current verified truth |
-| 2 | Personal Memory + Agent Rules | Cross-project rules |
-| 3 | Verified Experience (TDAI, test results) | Evidence only, verify first |
-| 4 | Agent Memory (ChatGPT/Codex/Claude) | Hints, not decisions |
-| 5 | Raw History | Lowest priority |
+| 1 | Agent Rules (`rules/`) | Governance, safety |
+| 2 | Project Memory | Current verified truth |
+| 3 | Personal Memory | User preferences |
+| 4 | Verified Experience (TDAI, test results) | Evidence only, verify first |
+| 5 | Agent Memory (ChatGPT/Codex/Claude) | Hints, not decisions |
+| 6 | Raw History | Lowest priority |
 
 Conflicts are reported, not silently resolved. See `rules/authority.md` for full rules.
 

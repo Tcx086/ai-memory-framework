@@ -31,11 +31,12 @@
 | Level | Source | Rule |
 |---|---|---|
 | 0 | User Instruction | Highest — overrides everything |
-| 1 | Project Memory | Current verified truth |
-| 2 | Personal Memory + Agent Rules | Cross-project rules |
-| 3 | Verified Experience | Evidence only, verify first |
-| 4 | Agent Memory | Hints, not decisions |
-| 5 | Raw History | Lowest priority |
+| 1 | Agent Rules | Governance, safety |
+| 2 | Project Memory | Current verified truth |
+| 3 | Personal Memory | User preferences |
+| 4 | Verified Experience | Evidence only, verify first |
+| 5 | Agent Memory | Hints, not decisions |
+| 6 | Raw History | Lowest priority |
 
 ## Memory Lifecycle
 

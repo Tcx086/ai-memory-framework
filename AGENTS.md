@@ -2,83 +2,76 @@
 
 ## Purpose
 
-This repository provides long-term AI collaboration memory and workflow rules. Read this file at the start of every task; `rules/memory-policy.md` is the authoritative specification for definitions, exceptions, and update procedures.
+This repository provides long-term AI collaboration memory and workflow rules. Read this file at the start of every task. For full specifications, see `rules/memory-policy.md`.
 
 ## Memory Layers
 
-| Layer | Location | Contains | Rule |
-|---|---|---|---|
-| Personal Memory | `personal/` | User info, preferences, background | About "you" (the user) |
-| Project Memory | `project/` + per-project docs | Status, architecture, decisions, bugs, lessons | About "the project" |
-| Agent Rules | `rules/` | Authority, policy, promotion, conventions | How agents behave |
-| Experience | Optional TDAI provider | Conversations, attempts, candidates | Historical evidence only |
+| Layer | Location | About |
+|---|---|---|
+| Agent Rules | `rules/` | How agents behave |
+| Project Memory | `project/` + per-project docs | The project |
+| Personal Memory | `personal/` | The user |
+| Experience | Optional TDAI provider | Historical evidence only |
 
-Experience Memory cannot override or directly modify Personal, Project, or Agent Rules.
+## Authority (who wins)
 
-## Loading
+```text
+Level 0  User Instruction        ← highest
+Level 1  Agent Rules             ← governance, safety
+Level 2  Project Memory          ← project facts
+Level 3  Personal Memory         ← user preferences
+Level 4  Verified Experience     ← historical evidence
+Level 5  Agent Memory            ← AI's own memory
+Level 6  Raw History             ← lowest
+```
 
-- Load only what the current task requires; start small and expand on demand.
-- Establish current facts from Authoritative Memory before consulting Experience Memory.
-- Load `rules/memory-policy.md` when reviewing, modifying, or resolving conflicts in memory.
-- Load `personal/universal-memory.md` only when user background is needed.
-- Load `rules/conventions.md` only when collaboration conventions are needed.
-- Load `project/projects.md` only to locate or identify a project, then read the minimum relevant project documents.
-- Do not load all projects, historical records, or Experience Memory by default.
+Full rules: `rules/authority.md`
+
+## Loading (what to read)
+
+```text
+1. AGENTS.md                          ← always
+2. rules/authority.md                 ← know who wins
+3. project/projects.md                ← find the project
+4. project/[name]/INDEX.md            ← know what files exist
+5. Load only what the task needs      ← be selective
+```
+
+Full loading rules: `rules/memory-policy.md`
 
 ## Core Behavior
 
-- Follow the current user instruction first.
-- Before using memory, load `rules/authority.md` and respect the authority priority levels.
-- Never overwrite authoritative memory (Level 0-2) without explicit user confirmation.
-- When sources conflict, higher authority wins; report the conflict, do not silently resolve.
-- Before creating a Governance or Authoritative Memory file, require an explicit purpose and preserve the user-declared purpose in the file's `Purpose` section and any applicable index; do not infer or broaden it.
-- Before adding information to an existing file, read its declared purpose and confirm the content fits. If the target conflicts with that purpose or the fit is unclear, stop and ask; changing a file's purpose requires explicit approval.
-- Do not invent missing facts or present assumptions as confirmed.
-- Distinguish confirmed facts, inferences, historical evidence, and unknowns.
-- Ask when an unknown blocks progress, materially changes the result, or requires a user decision.
-- State any necessary non-blocking assumption and use the safest reasonable option.
-- Do not infer current project state or next goals from general memory; use the project's `STATUS.md` or `PROJECT.md` or ask the user.
-- Treat `project/projects.md` as navigation, not technical truth.
+- **User instruction first.** Current instruction overrides everything.
+- **Rules are governance.** User preference cannot bypass safety rules (e.g., confirm before destructive actions).
+- **Project Memory is truth.** For project facts, trust project docs over preferences or memory.
+- **Be honest.** Distinguish confirmed facts, inferences, and unknowns. Don't guess.
+- **Ask, don't assume.** When unknown blocks progress, ask the user.
+- **Report conflicts.** Never silently resolve — higher authority wins, but log it.
 
-## Experience Memory
+## Writing Rules
 
-- Query it only when historical context materially helps.
-- Each retrieval round may use at most one search tool and return no more than 3 results.
-- Validate scope, date, supersession, and conflicts against Authoritative Memory.
-- Label unresolved recall as uncertain; continue without recall if no provider is available.
-- After each round, show the relevant content of every returned item, including available source, date, scope, and conflict or uncertainty notes.
-- Stop after presenting the results and ask whether the user wants another retrieval round. Do not search again without explicit approval.
-- Automatic capture does not authorize automatic recall or authoritative writes.
-- Store Experience Memory only after explicit user authorization or under a separately confirmed bounded standing rule. Store at most one concise, confirmed, stable, reusable, secret-free item after a meaningful task; skip routine chat, temporary debugging, and assumptions. This never authorizes Governance or Authoritative Memory writes.
-- Promotion follows: Candidate -> validation -> user authorization -> Authoritative Memory.
+- Memory is not a log. Store only confirmed, stable, reusable information.
+- Never store passwords, API keys, tokens, or credentials.
+- Before writing, propose: exact change, target file, reason.
+- Modify Agent Rules or Project Memory only after user approval (unless current instruction requests that exact change).
+- After writing, report what changed and why.
 
-## Memory Updates
+## Promotion
 
-- Memory is not a log. Store only confirmed, stable, reusable information; dynamic project documents follow the policy exception.
-- A one-time request or repeated observation is not automatically a lasting preference.
-- Never store passwords, API keys, tokens, private credentials, guesses, or temporary debugging attempts.
-- Before writing, propose the exact change, target file, reason, replacement or invalidation, and any sensitive information involved.
-- Modify Governance or Authoritative Memory only after explicit user approval, unless the current instruction already requests that exact change.
-- After writing, report what changed, why, and how consistency was verified.
+Experience → Candidate → Verified → Project Memory (authoritative)
 
-## Priority
-
-Current user instruction > Governance Memory > Authoritative Memory > Experience Memory > raw conversation history.
-
-Within a layer, follow the most specific applicable authority and then newer confirmed information. Project-specific governance is Governance Memory; project-internal current-state and technical documents are Authoritative Memory.
+Full rules: `rules/memory-promotion.md`
 
 ## Approval Boundaries
 
-Obtain explicit user approval before:
+Require explicit user approval before:
 
-- Destructive file, system, or data operations.
-- Physical actuation or actions that could cause damage.
-- External deployment or publication.
-- Financial transactions or commitments.
-- Installing, updating, modifying, or removing skills.
-
-Read-only inspection, analysis, and reversible local verification do not require additional approval unless another rule says otherwise.
+- Destructive file, system, or data operations
+- Physical actuation or actions that could cause damage
+- External deployment or publication
+- Financial transactions or commitments
+- Installing, updating, or removing skills
 
 ## Engineering Style
 
-Prefer understanding before modification, minimal changes, clear architecture, and maintainable solutions. Avoid unrelated refactoring and guessing missing information.
+Prefer understanding before modification, minimal changes, clear architecture, and maintainable solutions.
