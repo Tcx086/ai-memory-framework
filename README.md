@@ -45,12 +45,52 @@ Experience memory (optional): conversations · attempts · scenarios · profiles
 
 **Priority**: current instruction > governance > authoritative > experience > raw history
 
+### Authority Levels
+
+When multiple agents produce conflicting information, the authority system determines what to trust:
+
+| Level | Source | Rule |
+|---|---|---|
+| 0 | User Instruction | Highest — overrides everything |
+| 1 | Project Docs (`STATUS.md`, `ARCHITECTURE.md`, `DECISIONS.md`) | Current verified truth |
+| 2 | Global Memory (`universal-memory.md`, `conventions.md`) | Cross-project rules |
+| 3 | Verified Experience (TDAI, test results) | Evidence only, verify first |
+| 4 | Agent Memory (ChatGPT/Codex/Claude) | Hints, not decisions |
+| 5 | Raw History | Lowest priority |
+
+Conflicts are reported, not silently resolved. See `memory/authority.md` for full rules.
+
+### Memory Promotion
+
+Experience cannot directly write to authoritative memory. Information must pass through a lifecycle:
+
+```text
+Observation → Experience → Candidate → Verified → Authoritative
+```
+
+Promotion requires all five: **Stable**, **Reusable**, **Verified**, **Relevant**, **Authorized**.
+
+Example (STM32 PWM bug):
+
+| Stage | Content |
+|---|---|
+| Observation | "TIM2 has no PWM output after restart" |
+| Experience | "Suspect HAL_TIM_PWM_Stop causes the issue" |
+| Candidate | "Stop clears CCER register, restart doesn't restore it" |
+| Verified | "Modified to use CCER control — PWM works correctly" |
+| Authoritative | Written to `BUGS.md` as confirmed root cause |
+
+See `governance/memory-promotion.md` for full rules.
+
 ## Repository Layout
 
 ```text
 ai-memory-framework/
 ├── AGENTS.md                    # Behaviour summary loaded at every task
+├── governance/
+│   └── memory-promotion.md    # Memory states and promotion lifecycle
 ├── memory/
+│   ├── authority.md             # Authority level definitions (P0-P5)
 │   ├── memory-policy.md         # Full authoritative specification
 │   ├── conventions.md           # Stable collaboration conventions
 │   ├── universal-memory.md      # User info template

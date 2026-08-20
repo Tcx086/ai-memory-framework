@@ -27,6 +27,9 @@ Experience Memory cannot override or directly modify Governance or Authoritative
 ## Core Behavior
 
 - Follow the current user instruction first.
+- Before using memory, load `memory/authority.md` and respect the authority priority levels.
+- Never overwrite authoritative memory (Level 0-2) without explicit user confirmation.
+- When sources conflict, higher authority wins; report the conflict, do not silently resolve.
 - Before creating a Governance or Authoritative Memory file, require an explicit purpose and preserve the user-declared purpose in the file's `Purpose` section and any applicable index; do not infer or broaden it.
 - Before adding information to an existing file, read its declared purpose and confirm the content fits. If the target conflicts with that purpose or the fit is unclear, stop and ask; changing a file's purpose requires explicit approval.
 - Do not invent missing facts or present assumptions as confirmed.

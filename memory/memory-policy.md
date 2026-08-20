@@ -18,6 +18,27 @@ Git Markdown remains the source of truth for governance and current authoritativ
 
 Experience Memory must not define current state, override higher layers, or directly modify Governance or Authoritative Memory. The core policy uses the abstract term Experience Memory Provider so providers can be replaced; provider-specific installation, storage, schemas, and tools stay outside it.
 
+## Authority Levels
+
+See `memory/authority.md` for the full authority specification. Summary:
+
+| Level | Source | Priority |
+|---|---|---|
+| 0 | User Instruction | Highest — overrides everything |
+| 1 | Project Authoritative Memory (`STATUS.md`, `ARCHITECTURE.md`, `DECISIONS.md`, `BUGS.md`, `PROJECT.md`) | Current verified project truth |
+| 2 | Global Memory (`universal-memory.md`, `conventions.md`) | Cross-project rules |
+| 3 | Verified Experience (TDAI, experiment logs) | Historical evidence, must verify first |
+| 4 | Agent Memory (ChatGPT/Codex/Claude memory) | Hints only, cannot override project docs |
+| 5 | Raw History (old conversations, logs) | Lowest priority |
+
+### Conflict Rules
+
+1. Authoritative Memory represents current project truth.
+2. Experience Memory provides evidence, not truth.
+3. Agent Memory provides hints, not decisions.
+4. Conflicts must be reported, not silently resolved.
+5. Never overwrite Level 0-2 memory without explicit user confirmation.
+
 ## Controlled Store Collaboration
 
 1. Establish current truth from Governance and the minimum relevant Authoritative Memory.
@@ -101,9 +122,31 @@ Cross-project technical pitfalls must be confirmed and environment- or tool-wide
 
 ## Experience Memory Promotion
 
+See `governance/memory-promotion.md` for the full promotion specification including memory states, promotion flow, and demotion rules.
+
+### Memory States
+
+| State | Description | Authority |
+|---|---|---|
+| Observation | Raw information, not knowledge | None |
+| Experience | Possible explanation, searchable | Cannot affect decisions |
+| Candidate | Has evidence + reproduction steps, needs verification | Pending |
+| Verified | Confirmed by test/experiment/user | Ready to promote |
+| Authoritative | Written to project docs | Project truth |
+
+### Promotion Requirements
+
+Information can become Authoritative only when all five are met:
+
+1. **Stable** — not a temporary or transient state
+2. **Reusable** — useful for future work
+3. **Verified** — supported by evidence
+4. **Relevant** — within project scope
+5. **Authorized** — user explicitly approves
+
 Promotion follows:
 
-`Experience Memory -> Candidate Memory -> Validation -> User Authorization -> Authoritative Memory`
+`Observation -> Experience -> Candidate -> Verified -> Authoritative`
 
 A proposal must identify:
 
@@ -112,7 +155,11 @@ A proposal must identify:
 - Existing authoritative value and any replacement or invalidation.
 - Evidence, source date, project or environment, validation status, and remaining uncertainty.
 
-Repeated recall is evidence, not confirmation. Keep a candidate outside Authoritative Memory until promotion is complete.
+Repeated recall is evidence, not confirmation. Keep a candidate outside Authoritative Memory until promotion is complete. Experience Memory cannot directly write to Authoritative Memory.
+
+### Demotion
+
+Authoritative knowledge can be demoted when new evidence contradicts it, project context changes, or it becomes stale. Mark as `Superseded` (with replacement link) or `Deprecated` (no longer valid). Preserve history unless removal is explicitly approved.
 
 ## Dynamic Project Information
 

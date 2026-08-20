@@ -44,6 +44,44 @@ Reason: provide a reusable dual-store framework for long-term AI-human collabora
 
 Impact: recalled history cannot override or directly update authoritative files.
 
+## 2026-08-20 V1.5 Memory Promotion
+
+Changes:
+
+- Added `governance/memory-promotion.md` with memory states, promotion flow, requirements, and demotion rules
+- Added Memory Promotion section to README.md with lifecycle diagram and STM32 example
+- Updated `memory/memory-policy.md` with memory states table, promotion requirements, and demotion rules
+
+Reason: V1.4 defined what to trust; V1.5 defines when experience can become authoritative. Without this, agents either write unverified claims to project docs or valuable lessons stay buried in chat history.
+
+Impact: Knowledge now has a lifecycle — Observation → Experience → Candidate → Verified → Authoritative. Promotion requires all five conditions: Stable, Reusable, Verified, Relevant, Authorized.
+
+## 2026-08-20 V1.4 Authority System
+
+Changes:
+
+- Added `memory/authority.md` with P0-P5 priority levels and conflict handling rules
+- Added Authority Levels section to `memory/memory-policy.md`
+- Updated `AGENTS.md` with authority loading and conflict rules
+- Updated `README.md` with Authority section and repository layout
+
+Reason: Establish the foundation for memory governance — define what information can be trusted when multiple agents produce conflicting data.
+
+Impact: Agents now have a clear hierarchy for resolving information conflicts. Higher authority sources automatically override lower ones. Conflicts are reported, not silently resolved.
+
+## 2026-08-20 V1.3 Strategic Repositioning — Memory Governance
+
+Changes:
+
+- Repositioned from "AI Memory Framework" to "Multi-Agent Memory Governance Framework"
+- Defined six core capabilities: Authority Model, Cross-Agent, Memory Lifecycle, Conflict Resolution, Context Router, Handoff Protocol
+- Added ROADMAP.md with V1.4-V1.8 version plan
+- New tagline: "Agents can remember independently, but projects need one truth."
+
+Reason: The memory storage/retrieval space is crowded (Mem0, TDAI, built-in agent memories). The real value is governance — ensuring multiple agents share one authoritative truth, not each maintaining their own potentially conflicting memory.
+
+Impact: Framework direction shifts from "help AI remember more" to "help projects maintain single source of truth across agents." Technical implementation stays Git Markdown-based, but adds formal protocols for authority, lifecycle, routing, and handoff.
+
 ## Entry Format
 
 Use `## YYYY-MM-DD Version — Title`, followed by concise **Changes**, **Reason**, and **Impact** sections.
