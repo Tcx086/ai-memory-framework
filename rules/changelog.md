@@ -44,13 +44,29 @@ Reason: provide a reusable dual-store framework for long-term AI-human collabora
 
 Impact: recalled history cannot override or directly update authoritative files.
 
+## 2026-08-20 V1.6 Three-Layer Memory Architecture
+
+Changes:
+
+- Reorganized directory structure into three clear layers:
+  - `personal/` — Personal Memory (user info, preferences)
+  - `project/` — Project Memory (project index, per-project docs)
+  - `rules/` — Agent Rules (authority, policy, promotion, conventions)
+- Moved files from `memory/` and `governance/` to new layer-based locations
+- Updated all path references across AGENTS.md, README.md, memory-policy.md, authority.md
+- Updated README.md with clear Memory Layers table and new repository layout
+
+Reason: The three concepts (Personal/Project/Agent Rules) already existed in the framework but were not explicitly separated. Without clear layering, Authority, Promotion, and Handoff rules become ambiguous about what they apply to.
+
+Impact: Every memory file now belongs to exactly one layer. Authority levels map cleanly to layers (Level 1 = Project, Level 2 = Personal + Rules). Future Handoff Protocol can reference layers instead of individual files.
+
 ## 2026-08-20 V1.5 Memory Promotion
 
 Changes:
 
-- Added `governance/memory-promotion.md` with memory states, promotion flow, requirements, and demotion rules
+- Added `rules/memory-promotion.md` with memory states, promotion flow, requirements, and demotion rules
 - Added Memory Promotion section to README.md with lifecycle diagram and STM32 example
-- Updated `memory/memory-policy.md` with memory states table, promotion requirements, and demotion rules
+- Updated `rules/memory-policy.md` with memory states table, promotion requirements, and demotion rules
 
 Reason: V1.4 defined what to trust; V1.5 defines when experience can become authoritative. Without this, agents either write unverified claims to project docs or valuable lessons stay buried in chat history.
 
@@ -60,8 +76,8 @@ Impact: Knowledge now has a lifecycle — Observation → Experience → Candida
 
 Changes:
 
-- Added `memory/authority.md` with P0-P5 priority levels and conflict handling rules
-- Added Authority Levels section to `memory/memory-policy.md`
+- Added `rules/authority.md` with P0-P5 priority levels and conflict handling rules
+- Added Authority Levels section to `rules/memory-policy.md`
 - Updated `AGENTS.md` with authority loading and conflict rules
 - Updated `README.md` with Authority section and repository layout
 

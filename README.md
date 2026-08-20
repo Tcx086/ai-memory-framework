@@ -16,8 +16,8 @@ A dual-store memory architecture for AI assistants: **authoritative Git Markdown
 git clone https://github.com/hczxy05/ai-memory-framework.git ~/ai-memory
 ```
 
-1. Fill in `memory/universal-memory.md` with stable user info and preferences.
-2. Add your projects to `memory/projects.md`; adjust `memory/conventions.md` as needed.
+1. Fill in `personal/universal-memory.md` with stable user info and preferences.
+2. Add your projects to `project/projects.md`; adjust `rules/conventions.md` as needed.
 3. Tell your Agent to read `~/ai-memory/AGENTS.md` at the start of every task.
 
 That's it — Git Markdown memory works standalone. TDAI experience memory is an optional enhancement.
@@ -36,14 +36,25 @@ Both stores collaborate, but they are not equal.
 ```text
 Incoming user instruction
     ↓
-Governance: AGENTS.md · memory-policy.md · conventions.md
+Agent Rules: AGENTS.md · memory-policy.md · authority.md · conventions.md · memory-promotion.md
     ↓
-Authoritative memory: user info · project status · architecture · decisions · bugs · lessons
+Personal Memory: user info · preferences · background
     ↓
-Experience memory (optional): conversations · attempts · scenarios · profiles
+Project Memory: project status · architecture · decisions · bugs · lessons
+    ↓
+Experience Memory (optional): conversations · attempts · scenarios · profiles
 ```
 
-**Priority**: current instruction > governance > authoritative > experience > raw history
+**Priority**: current instruction > agent rules > project memory > personal memory > experience > raw history
+
+### Memory Layers
+
+| Layer | Location | Purpose |
+|---|---|---|
+| Agent Rules | `rules/` | How agents behave: authority, policy, promotion, conventions |
+| Personal Memory | `personal/` | About the user: info, preferences, background |
+| Project Memory | `project/` + per-project docs | About the project: status, architecture, decisions, bugs |
+| Experience Memory | Optional TDAI provider | Historical evidence: conversations, attempts, candidates |
 
 ### Authority Levels
 
@@ -52,13 +63,13 @@ When multiple agents produce conflicting information, the authority system deter
 | Level | Source | Rule |
 |---|---|---|
 | 0 | User Instruction | Highest — overrides everything |
-| 1 | Project Docs (`STATUS.md`, `ARCHITECTURE.md`, `DECISIONS.md`) | Current verified truth |
-| 2 | Global Memory (`universal-memory.md`, `conventions.md`) | Cross-project rules |
+| 1 | Project Memory (`STATUS.md`, `ARCHITECTURE.md`, `DECISIONS.md`) | Current verified truth |
+| 2 | Personal Memory + Agent Rules | Cross-project rules |
 | 3 | Verified Experience (TDAI, test results) | Evidence only, verify first |
 | 4 | Agent Memory (ChatGPT/Codex/Claude) | Hints, not decisions |
 | 5 | Raw History | Lowest priority |
 
-Conflicts are reported, not silently resolved. See `memory/authority.md` for full rules.
+Conflicts are reported, not silently resolved. See `rules/authority.md` for full rules.
 
 ### Memory Promotion
 
@@ -80,22 +91,23 @@ Example (STM32 PWM bug):
 | Verified | "Modified to use CCER control — PWM works correctly" |
 | Authoritative | Written to `BUGS.md` as confirmed root cause |
 
-See `governance/memory-promotion.md` for full rules.
+See `rules/memory-promotion.md` for full rules.
 
 ## Repository Layout
 
 ```text
 ai-memory-framework/
 ├── AGENTS.md                    # Behaviour summary loaded at every task
-├── governance/
-│   └── memory-promotion.md    # Memory states and promotion lifecycle
-├── memory/
-│   ├── authority.md             # Authority level definitions (P0-P5)
-│   ├── memory-policy.md         # Full authoritative specification
-│   ├── conventions.md           # Stable collaboration conventions
-│   ├── universal-memory.md      # User info template
-│   ├── projects.md              # Project index template
-│   └── changelog.md
+├── personal/                    # Personal Memory (about the user)
+│   └── universal-memory.md      #   User info, preferences, background
+├── project/                     # Project Memory (about projects)
+│   └── projects.md              #   Project index and navigation
+├── rules/                       # Agent Rules (how agents behave)
+│   ├── authority.md             #   Authority level definitions (P0-P5)
+│   ├── memory-policy.md         #   Full memory specification
+│   ├── memory-promotion.md      #   Memory states and promotion lifecycle
+│   ├── conventions.md           #   Stable collaboration conventions
+│   └── changelog.md             #   Version change log
 ├── templates/
 │   ├── project-template.md
 │   ├── task-template.md
@@ -169,7 +181,7 @@ OpenClaw users can copy `workspace-example/` and fill in identity, user, and too
 
 1. Use `templates/project-template.md` to create a `STATUS.md` or modular `PROJECT.md` in your project repo.
 2. For larger projects, add `ARCHITECTURE.md`, `DECISIONS.md`, `BUGS.md`, `LESSONS.md` as needed.
-3. Register the project path in `memory/projects.md`.
+3. Register the project path in `project/projects.md`.
 
 ## Compatible Platforms
 

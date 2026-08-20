@@ -1,26 +1,49 @@
 # AI Memory Quick Reference
 
-> Version 1.2 · 2026-08-19
+> Version 1.6 · 2026-08-20
 
-## Two Stores
+## Three Memory Layers
 
-| Store | Contains | Authority |
-|---|---|---|
-| AI-Memory Git Markdown | Current rules, facts, state, architecture, decisions, issues, and verified lessons | Source of truth within each file's responsibility |
-| Experience Memory | Conversations, attempts, extracted memories, scenes, and personas | Historical evidence only |
+| Layer | Location | Contains | Purpose |
+|---|---|---|---|
+| Personal Memory | `personal/` | User info, preferences, background | About "you" (the user) |
+| Project Memory | `project/` + per-project docs | Status, architecture, decisions, bugs, lessons | About "the project" |
+| Agent Rules | `rules/` | Authority, policy, promotion, conventions | How agents behave |
+| Experience Memory | Optional TDAI provider | Conversations, attempts, candidates | Historical evidence only |
 
-**Rule:** establish the present from authoritative Markdown, then consult history only when useful.
+**Rule:** Agent Rules define behavior. Project Memory is source of truth. Personal Memory provides user context. Experience is evidence only.
 
 ## What to Read
 
 | Need | Source |
 |---|---|
-| User background | `memory/universal-memory.md` |
-| Project location | `memory/projects.md` |
+| User background | `personal/universal-memory.md` |
+| Project location | `project/projects.md` |
 | Current project state | Project `STATUS.md` or `PROJECT.md` |
 | Design | `ARCHITECTURE.md` and `DECISIONS.md` |
 | Known issue | `BUGS.md` |
 | Verified project lesson | `LESSONS.md` |
+| Authority rules | `rules/authority.md` |
+| Promotion rules | `rules/memory-promotion.md` |
+
+## Authority Levels
+
+| Level | Source | Rule |
+|---|---|---|
+| 0 | User Instruction | Highest — overrides everything |
+| 1 | Project Memory | Current verified truth |
+| 2 | Personal Memory + Agent Rules | Cross-project rules |
+| 3 | Verified Experience | Evidence only, verify first |
+| 4 | Agent Memory | Hints, not decisions |
+| 5 | Raw History | Lowest priority |
+
+## Memory Lifecycle
+
+```text
+Observation → Experience → Candidate → Verified → Authoritative
+```
+
+Promotion requires: **Stable**, **Reusable**, **Verified**, **Relevant**, **Authorized**
 
 ## Workspace Files
 
@@ -29,8 +52,8 @@
 | `AGENTS.md` | Supplementary workspace instructions |
 | `IDENTITY.md` | Agent display identity |
 | `SOUL.md` | Persona, tone, and boundaries |
-| `USER.md` | Small workspace profile; stable facts defer to `universal-memory.md` |
+| `USER.md` | Small workspace profile; stable facts defer to `personal/universal-memory.md` |
 | `TOOLS.md` | Local tool notes |
 | `MEMORY.md` | Optional non-authoritative bootstrap cache |
 
-For loading rules, query limits, update flow, priority hierarchy, and safety boundaries, see the external `AGENTS.md` and `memory/memory-policy.md`.
+For loading rules, query limits, update flow, priority hierarchy, and safety boundaries, see the external `AGENTS.md` and `rules/memory-policy.md`.

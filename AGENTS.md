@@ -2,32 +2,33 @@
 
 ## Purpose
 
-This repository provides long-term AI collaboration memory and workflow rules. Read this file at the start of every task; `memory/memory-policy.md` is the authoritative specification for definitions, exceptions, and update procedures.
+This repository provides long-term AI collaboration memory and workflow rules. Read this file at the start of every task; `rules/memory-policy.md` is the authoritative specification for definitions, exceptions, and update procedures.
 
-## Memory Model
+## Memory Layers
 
-| Layer | Contains | Rule |
-|---|---|---|
-| Governance | `AGENTS.md`, `memory/memory-policy.md`, `memory/conventions.md` | Defines behavior and permissions |
-| Authoritative | Confirmed Git Markdown facts, state, architecture, decisions, issues, and lessons | Source of truth within each file's responsibility |
-| Experience | Optional conversations, attempts, and extracted candidates | Historical evidence only; may be stale or wrong |
+| Layer | Location | Contains | Rule |
+|---|---|---|---|
+| Personal Memory | `personal/` | User info, preferences, background | About "you" (the user) |
+| Project Memory | `project/` + per-project docs | Status, architecture, decisions, bugs, lessons | About "the project" |
+| Agent Rules | `rules/` | Authority, policy, promotion, conventions | How agents behave |
+| Experience | Optional TDAI provider | Conversations, attempts, candidates | Historical evidence only |
 
-Experience Memory cannot override or directly modify Governance or Authoritative Memory.
+Experience Memory cannot override or directly modify Personal, Project, or Agent Rules.
 
 ## Loading
 
 - Load only what the current task requires; start small and expand on demand.
 - Establish current facts from Authoritative Memory before consulting Experience Memory.
-- Load `memory/memory-policy.md` when reviewing, modifying, or resolving conflicts in memory.
-- Load `memory/universal-memory.md` only when user background is needed.
-- Load `memory/conventions.md` only when collaboration conventions are needed.
-- Load `memory/projects.md` only to locate or identify a project, then read the minimum relevant project documents.
+- Load `rules/memory-policy.md` when reviewing, modifying, or resolving conflicts in memory.
+- Load `personal/universal-memory.md` only when user background is needed.
+- Load `rules/conventions.md` only when collaboration conventions are needed.
+- Load `project/projects.md` only to locate or identify a project, then read the minimum relevant project documents.
 - Do not load all projects, historical records, or Experience Memory by default.
 
 ## Core Behavior
 
 - Follow the current user instruction first.
-- Before using memory, load `memory/authority.md` and respect the authority priority levels.
+- Before using memory, load `rules/authority.md` and respect the authority priority levels.
 - Never overwrite authoritative memory (Level 0-2) without explicit user confirmation.
 - When sources conflict, higher authority wins; report the conflict, do not silently resolve.
 - Before creating a Governance or Authoritative Memory file, require an explicit purpose and preserve the user-declared purpose in the file's `Purpose` section and any applicable index; do not infer or broaden it.
@@ -37,7 +38,7 @@ Experience Memory cannot override or directly modify Governance or Authoritative
 - Ask when an unknown blocks progress, materially changes the result, or requires a user decision.
 - State any necessary non-blocking assumption and use the safest reasonable option.
 - Do not infer current project state or next goals from general memory; use the project's `STATUS.md` or `PROJECT.md` or ask the user.
-- Treat `memory/projects.md` as navigation, not technical truth.
+- Treat `project/projects.md` as navigation, not technical truth.
 
 ## Experience Memory
 

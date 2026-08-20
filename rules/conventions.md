@@ -1,6 +1,6 @@
 # Working Conventions
 
-These are stable collaboration and engineering conventions. Memory authority, admission, and permission rules are defined in `memory/memory-policy.md`.
+These are stable collaboration and engineering conventions. Memory authority, admission, and permission rules are defined in `rules/memory-policy.md`.
 
 ## Task Workflow
 

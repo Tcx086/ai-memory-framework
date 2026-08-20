@@ -8,11 +8,12 @@ The system should preserve useful confirmed context, load only what a task needs
 
 ## Memory Architecture
 
-| Layer | Role | Typical sources | Authority |
+| Layer | Location | Role | Authority |
 |---|---|---|---|
-| 1. Governance Memory | Behavior, permissions, loading, promotion, and conflict rules | `AGENTS.md`, this policy, `memory/conventions.md` | Highest stored authority; changes require user authorization |
-| 2. Authoritative Memory | Confirmed current facts within each file's assigned responsibility | `memory/universal-memory.md`, `memory/projects.md`, project `STATUS.md`, `ARCHITECTURE.md`, `DECISIONS.md`, `BUGS.md`, `LESSONS.md`, or `PROJECT.md` | Source of truth for current facts |
-| 3. Experience Memory | Conversations, attempts, historical paths, and extracted candidates | An optional Experience Memory Provider such as TDAI | Historical evidence only; may be stale, incomplete, or wrong |
+| Personal Memory | `personal/` | User info, preferences, background | About the user |
+| Project Memory | `project/` + per-project docs | Status, architecture, decisions, bugs, lessons | Source of truth for current facts |
+| Agent Rules | `rules/` | Authority, policy, promotion, conventions | How agents behave |
+| Experience Memory | Optional TDAI provider | Conversations, attempts, candidates | Historical evidence only |
 
 Git Markdown remains the source of truth for governance and current authoritative facts. A file is authoritative only for its defined responsibility; its existence does not make unverified or out-of-scope content authoritative.
 
@@ -20,13 +21,13 @@ Experience Memory must not define current state, override higher layers, or dire
 
 ## Authority Levels
 
-See `memory/authority.md` for the full authority specification. Summary:
+See `rules/authority.md` for the full authority specification. Summary:
 
 | Level | Source | Priority |
 |---|---|---|
 | 0 | User Instruction | Highest — overrides everything |
-| 1 | Project Authoritative Memory (`STATUS.md`, `ARCHITECTURE.md`, `DECISIONS.md`, `BUGS.md`, `PROJECT.md`) | Current verified project truth |
-| 2 | Global Memory (`universal-memory.md`, `conventions.md`) | Cross-project rules |
+| 1 | Project Memory (`STATUS.md`, `ARCHITECTURE.md`, `DECISIONS.md`, `BUGS.md`, `PROJECT.md`) | Current verified project truth |
+| 2 | Personal Memory + Agent Rules (`personal/universal-memory.md`, `rules/conventions.md`) | Cross-project rules |
 | 3 | Verified Experience (TDAI, experiment logs) | Historical evidence, must verify first |
 | 4 | Agent Memory (ChatGPT/Codex/Claude memory) | Hints only, cannot override project docs |
 | 5 | Raw History (old conversations, logs) | Lowest priority |
@@ -52,23 +53,19 @@ Automatic capture and automatic recall are separate permissions. Enabling captur
 
 ## Scope and Source Responsibilities
 
-| Source | Responsibility | Must not be used for |
-|---|---|---|
-| `memory/universal-memory.md` | Confirmed stable user information and preferences | Temporary tasks or project details |
-| `memory/conventions.md` | Stable cross-project collaboration and engineering conventions | Project-only lessons or unverified pitfalls |
-| `memory/projects.md` | Project locations, navigation, and dated summary snapshots | Detailed implementation or current technical truth |
-| Project `STATUS.md` | Confirmed current state, configuration, and next goal | Undated assumptions |
-| `ARCHITECTURE.md` | Current system design | Raw design speculation |
-| `DECISIONS.md` | Confirmed decisions and rationale | Unresolved options |
-| `BUGS.md` | Confirmed known issues and status | Unverified symptoms |
-| `LESSONS.md` | Verified reusable project knowledge | Unverified attempts |
-| `PROJECT.md` | Combined authoritative source for a small project | Unrelated projects |
+| Source | Layer | Responsibility | Must not be used for |
+|---|---|---|---|
+| `personal/universal-memory.md` | Personal | Confirmed stable user information and preferences | Temporary tasks or project details |
+| `rules/conventions.md` | Agent Rules | Stable cross-project collaboration and engineering conventions | Project-only lessons or unverified pitfalls |
+| `project/projects.md` | Project | Project locations, navigation, and dated summary snapshots | Detailed implementation or current technical truth |
+| Project `STATUS.md` | Project | Confirmed current state, configuration, and next goal | Undated assumptions |
+| `ARCHITECTURE.md` | Project | Current system design | Raw design speculation |
+| `DECISIONS.md` | Project | Confirmed decisions and rationale | Unresolved options |
+| `BUGS.md` | Project | Confirmed known issues and status | Unverified symptoms |
+| `LESSONS.md` | Project | Verified reusable project knowledge | Unverified attempts |
+| `PROJECT.md` | Project | Combined authoritative source for a small project | Unrelated projects |
 
-A confirmed decision starts as Active. Mark it Superseded and link its replacement when replaced, or Deprecated when it should no longer be used without a direct replacement. Preserve decision history unless removal is approved.
-
-A lesson must include evidence, verification status, and verification date. Only Confirmed lessons are authoritative; unverified lessons must not guide high-risk work or be promoted.
-
-Support files are non-authoritative: `README.md` is human-facing orientation, `memory/changelog.md` is a governance change summary, and `templates/` contains scaffolding. Templates must follow this policy.
+Support files are non-authoritative: `README.md` is human-facing orientation, `rules/changelog.md` is a change summary, and `templates/` contains scaffolding. Templates must follow this policy.
 
 ## File Purpose and Write Routing
 
@@ -86,9 +83,9 @@ Load conditionally:
 | Need | Load |
 |---|---|
 | Review or modify memory | This policy |
-| User background | `memory/universal-memory.md` |
-| Collaboration conventions | `memory/conventions.md` |
-| Locate a project | `memory/projects.md` |
+| User background | `personal/universal-memory.md` |
+| Collaboration conventions | `rules/conventions.md` |
+| Locate a project | `project/projects.md` |
 | Current project state | Project `PROJECT.md` or `STATUS.md` |
 | Design work | `ARCHITECTURE.md` and relevant `DECISIONS.md` |
 | Debugging | `PROJECT.md` or `STATUS.md`, then `BUGS.md`; add `LESSONS.md` only when useful |
@@ -116,13 +113,13 @@ Suitable long-term entries include explicit user preferences, final decisions, a
 
 A one-time request or repeated observation is not automatically a lasting preference. Record a preference only when the user states that it applies in the future or confirms an agent's proposal; add a confirmation date when useful.
 
-Project lessons stay in their source project by default. Promote one to `memory/conventions.md` only when it is confirmed, cross-project, stable, reusable, and user-approved. Verify an adapted lesson in each target project, and prefer referencing a promoted convention over copying it.
+Project lessons stay in their source project by default. Promote one to `rules/conventions.md` only when it is confirmed, cross-project, stable, reusable, and user-approved. Verify an adapted lesson in each target project, and prefer referencing a promoted convention over copying it.
 
 Cross-project technical pitfalls must be confirmed and environment- or tool-wide. Review them after relevant convention or major tool changes, when conflicts or duplicates appear, or on user request. Reclassification or removal requires approval.
 
 ## Experience Memory Promotion
 
-See `governance/memory-promotion.md` for the full promotion specification including memory states, promotion flow, and demotion rules.
+See `rules/memory-promotion.md` for the full promotion specification including memory states, promotion flow, and demotion rules.
 
 ### Memory States
 
@@ -195,9 +192,9 @@ Allowed lifecycle actions:
 
 Present exact cleanup, consolidation, archival, or deletion changes and obtain approval first.
 
-For a completed or archived project, update its dated `STATUS.md` or `PROJECT.md`, then update `memory/projects.md` only as an index summary. Preserve decisions and confirmed lessons unless removal is explicitly approved.
+For a completed or archived project, update its dated `STATUS.md` or `PROJECT.md`, then update `project/projects.md` only as an index summary. Preserve decisions and confirmed lessons unless removal is explicitly approved.
 
-Keep `memory/changelog.md` concise because Git holds line-level history. When it exceeds 10 version entries or 300 lines, propose an annual consolidation without losing important rationale.
+Keep `rules/changelog.md` concise because Git holds line-level history. When it exceeds 10 version entries or 300 lines, propose an annual consolidation without losing important rationale.
 
 ## Conflict Resolution
 
@@ -211,7 +208,7 @@ Use this priority order:
 
 Within Governance Memory, use the most specific applicable rule; this policy controls memory-management matters. Within Authoritative Memory, use the file assigned to the fact, then newer confirmed information.
 
-Project-internal documents beat `memory/projects.md`. Experience Memory remains historical evidence even when it is newer; recency alone never promotes it.
+Project-internal documents beat `project/projects.md`. Experience Memory remains historical evidence even when it is newer; recency alone never promotes it.
 
 ## Efficiency Principle
 

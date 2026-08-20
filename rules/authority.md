@@ -15,9 +15,11 @@ Examples:
 - User overrides previous architecture
 - "Change database from SQLite to PostgreSQL" → immediately overrides previous decisions
 
-### Level 1 — Project Authoritative Memory（项目权威记忆）
+### Level 1 — Project Memory（项目记忆）
 
-Source: `STATUS.md`, `ARCHITECTURE.md`, `DECISIONS.md`, `BUGS.md`, `PROJECT.md`
+Source: Project docs — `STATUS.md`, `ARCHITECTURE.md`, `DECISIONS.md`, `BUGS.md`, `PROJECT.md`
+
+Layer: Project Memory (`project/` + per-project docs)
 
 Purpose: Current verified project knowledge.
 
@@ -27,16 +29,19 @@ Contains:
 - Accepted decisions
 - Verified project state
 
-### Level 2 — Global Memory（全局记忆）
+### Level 2 — Personal Memory + Agent Rules（个人记忆 + Agent规则）
 
-Source: `universal-memory.md`, `conventions.md`
+Source: `personal/universal-memory.md`, `rules/conventions.md`
 
-Purpose: General rules across projects.
+Layer: Personal Memory (`personal/`) + Agent Rules (`rules/`)
+
+Purpose: User preferences and cross-project rules.
 
 Contains:
+- User info and preferences
 - Coding style
-- Workflow preferences
-- Cross-project conventions
+- Workflow conventions
+- Cross-project rules
 
 ### Level 3 — Verified Experience（验证经验）
 
