@@ -86,6 +86,7 @@ Load conditionally:
 | User background | `personal/universal-memory.md` |
 | Collaboration conventions | `rules/conventions.md` |
 | Locate a project | `project/projects.md` |
+| Understand a project | Project `INDEX.md` (lists all project files) |
 | Current project state | Project `PROJECT.md` or `STATUS.md` |
 | Design work | `ARCHITECTURE.md` and relevant `DECISIONS.md` |
 | Debugging | `PROJECT.md` or `STATUS.md`, then `BUGS.md`; add `LESSONS.md` only when useful |

@@ -44,6 +44,18 @@ Reason: provide a reusable dual-store framework for long-term AI-human collabora
 
 Impact: recalled history cannot override or directly update authoritative files.
 
+## 2026-08-20 V1.6.1 Project Index Template
+
+Changes:
+
+- Added `INDEX.md` template to `templates/project-template.md`
+- Each project now has a two-level index: `projects.md` → `INDEX.md` → per-file loading
+- Updated `rules/memory-policy.md` Loading Rules to include "Understand a project → Project INDEX.md"
+
+Reason: AI cannot "see" file directories — it must query and read text. Without a project-level index, agents waste tokens trying files blindly or miss relevant documents entirely.
+
+Impact: AI loads 2 small index files to locate exactly what it needs, instead of guessing or reading everything. Token-efficient and predictable.
+
 ## 2026-08-20 V1.6 Three-Layer Memory Architecture
 
 Changes:
