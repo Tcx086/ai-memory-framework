@@ -48,3 +48,18 @@ test("budget state survives restart, rejects concurrent owners, and fails closed
   fs.writeFileSync(file,"invalid");
   assert.throws(()=>createBudgetProxy(options));
 });
+
+test("expanded budget policy cannot exceed the hard ceiling or accept negative state", async(t)=>{
+  const dir=fs.mkdtempSync(path.join(os.tmpdir(),"budget-policy-"));t.after(()=>fs.rmSync(dir,{recursive:true,force:true}));
+  const file=path.join(dir,"ledger.json"), base={ledgerFile:file,readKey:()=> "fake",forward:async()=>({choices:[{message:{content:"ok"}}],usage:{prompt_tokens:1,completion_tokens:1}})};
+  for(const limits of [{maxCalls:350,maxReservedRmb:100},{maxCalls:0,maxReservedRmb:90},{maxCalls:1001,maxReservedRmb:90}])assert.throws(()=>createBudgetProxy({...base,limits}),/policy/);
+  fs.writeFileSync(file,JSON.stringify({calls:-1,reservedRmb:0,expiresAt:Date.now()+60000,usage:[]}));
+  assert.throws(()=>createBudgetProxy(base),/ledger/);
+  fs.writeFileSync(file,JSON.stringify({calls:12,reservedRmb:4,expiresAt:Date.now()+60000,usage:[]}));
+  const server=createBudgetProxy({...base,limits:{maxCalls:350,maxReservedRmb:90}});
+  await new Promise(r=>server.listen(0,"127.0.0.1",r));
+  try{
+    const response=await fetch("http://127.0.0.1:"+server.address().port+"/v1/chat/completions",{method:"POST",body:JSON.stringify({model:"deepseek-flash",messages:[{role:"user",content:"fixture"}]})});
+    assert.equal(response.status,200);assert.equal(JSON.parse(fs.readFileSync(file)).calls,13);
+  }finally{await new Promise(r=>server.close(r))}
+});

@@ -37,6 +37,7 @@ const SUPPORTED_PROTOCOL_VERSION = "2025-03-26";
 const MAX_RESULTS = 3;
 const MAX_FTS_CANDIDATES = 100;
 const MAX_READ_COS_BYTES = 64 * 1024;
+const MAX_REQUEST_BYTES = 256 * 1024;
 
 const TDAI_DATA_DIR = resolve(env.TDAI_DATA_DIR || join(env.HOME || env.USERPROFILE, ".openclaw", "memory-tdai"));
 const DB_PATH = join(TDAI_DATA_DIR, "vectors.db");
@@ -122,6 +123,12 @@ function scoreText(text, scene, query, terms, priority = 0) {
   return score + priorityBoost;
 }
 
+function sqlTextScore(column, terms) {
+  // Rank matching terms before LIMIT so frequent terms cannot hide the best candidate.
+  const hit = "(instr(lower(" + column + "), lower(?)) > 0)";
+  return "(4 * " + hit + " + " + terms.map(() => hit).join(" + ") + ")";
+}
+
 function boundedText(value, maxChars) {
   const text = String(value || "");
   return text.length <= maxChars ? text : `${text.slice(0, maxChars)}… [truncated]`;
@@ -192,9 +199,10 @@ function searchMemories(args) {
              timestamp_start, timestamp_end, updated_time, NULL AS fts_rank
       FROM l1_records
       WHERE session_key = ? AND (${sceneClauses.join(" OR ")})
-      ORDER BY priority = -1 DESC, priority DESC, updated_time DESC, record_id
+      ORDER BY ${sqlTextScore("content || char(10) || coalesce(scene_name, '')", terms)} DESC,
+               priority = -1 DESC, priority DESC, updated_time DESC, record_id
       LIMIT ?
-    `).all(scope, ...sceneParams, MAX_FTS_CANDIDATES);
+    `).all(scope, ...sceneParams, query, ...terms, MAX_FTS_CANDIDATES);
     for (const row of sceneRows) {
       if (!rowById.has(row.record_id)) rowById.set(row.record_id, row);
     }
@@ -210,10 +218,10 @@ function searchMemories(args) {
                timestamp_start, timestamp_end, updated_time, NULL AS fts_rank
         FROM l1_records
         WHERE session_key = ? AND (${clauses.join(" OR ")})
-        ORDER BY instr(lower(content || char(10) || scene_name), lower(?)) > 0 DESC,
+        ORDER BY ${sqlTextScore("content || char(10) || coalesce(scene_name, '')", terms)} DESC,
                  priority = -1 DESC, priority DESC, updated_time DESC, record_id
         LIMIT ?
-      `).all(scope, ...params, query, MAX_FTS_CANDIDATES);
+      `).all(scope, ...params, query, ...terms, MAX_FTS_CANDIDATES);
       for (const row of fallbackRows) rowById.set(row.record_id, row);
     }
 
@@ -280,9 +288,9 @@ function searchConversations(args) {
                NULL AS fts_rank
         FROM l0_conversations
         WHERE session_key = ? AND (${clauses.join(" OR ")})
-        ORDER BY instr(lower(message_text), lower(?)) > 0 DESC, timestamp DESC, record_id
+        ORDER BY ${sqlTextScore("message_text", terms)} DESC, timestamp DESC, record_id
         LIMIT ?
-      `).all(scope, ...params, query, MAX_FTS_CANDIDATES);
+      `).all(scope, ...params, query, ...terms, MAX_FTS_CANDIDATES);
     }
 
     const matches = rows
@@ -333,11 +341,11 @@ async function readCos(args) {
       expected = await lstat(component);
       if (expected.isSymbolicLink()) throw new Error("Access denied: symbolic links are not readable.");
     }
-    if (!expected.isFile()) throw new Error("Access denied: only regular files are readable.");
+    if (!expected.isFile() || expected.nlink !== 1) throw new Error("Access denied: only regular files without hard links are readable.");
     // shortcut: portable checks cannot lock parent directories; use OS isolation against concurrent hostile filesystem writers.
     handle = await open(target, fsConstants.O_RDONLY | (fsConstants.O_NOFOLLOW || 0) | (fsConstants.O_NONBLOCK || 0));
     const actual = await handle.stat();
-    if (!actual.isFile() || actual.dev !== expected.dev || actual.ino !== expected.ino || await realpath(filePath) !== target) {
+    if (!actual.isFile() || actual.nlink !== 1 || actual.dev !== expected.dev || actual.ino !== expected.ino || await realpath(filePath) !== target) {
       throw new Error("Access denied: file changed during validation.");
     }
     if (actual.size > MAX_READ_COS_BYTES) throw new Error("File exceeds the 64 KiB read limit.");
@@ -466,7 +474,7 @@ const TOOLS = [
   },
   {
     name: "tdai_read_cos",
-    description: "Read a regular Markdown file (at most 64 KiB): persona.md or scene_blocks/**/*.md, relative to the host's isolated TDAI data directory. Symbolic links are denied.",
+    description: "Read a regular Markdown file (at most 64 KiB): persona.md or scene_blocks/**/*.md, relative to the host's isolated TDAI data directory. Symbolic and hard links are denied.",
     inputSchema: {
       type: "object",
       properties: {
@@ -589,13 +597,23 @@ function processLine(line) {
 
 function startStdio() {
   stdin.setEncoding("utf-8");
-  let buffer = "";
+  let buffer = "", discarding = false;
   stdin.on("data", (chunk) => {
-    buffer += chunk;
-    const lines = buffer.split("\n");
-    buffer = lines.pop() || "";
-    for (const line of lines) {
-      if (line.trim()) processLine(line.trim());
+    const parts = chunk.split("\n");
+    for (let index = 0; index < parts.length; index++) {
+      if (!discarding) {
+        buffer += parts[index];
+        if (Buffer.byteLength(buffer, "utf8") > MAX_REQUEST_BYTES) {
+          stdout.write(JSON.stringify({ jsonrpc: "2.0", id: null, error: { code: -32600, message: "Request exceeds the 256 KiB input limit" } }) + "\n");
+          buffer = "";
+          discarding = true;
+        }
+      }
+      if (index < parts.length - 1) {
+        if (!discarding && buffer.trim()) processLine(buffer.trim());
+        buffer = "";
+        discarding = false;
+      }
     }
   });
   stdin.on("end", onStdinEnd);

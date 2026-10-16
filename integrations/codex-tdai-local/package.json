@@ -5,7 +5,7 @@
   "type": "module",
   "main": "server.mjs",
   "scripts": {
-    "test": "node --test server.integration.test.mjs ../promotion-gate/gate.test.mjs ../openclaw-tdai-local/budget-proxy.test.mjs",
+    "test": "node --test server.integration.test.mjs boundary-extra.test.mjs ../promotion-gate/gate.test.mjs ../openclaw-tdai-local/budget-proxy.test.mjs",
     "benchmark": "node benchmark.mjs"
   },
   "engines": {

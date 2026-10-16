@@ -5,7 +5,7 @@ import { spawn } from "node:child_process";
 import { DatabaseSync } from "node:sqlite";
 const SERVER_PATH=path.join(import.meta.dirname,"server.mjs");
 export function createDatabase(dbPath) {
-const db=new DatabaseSync(dbPath);
+  const db = new DatabaseSync(dbPath);
   db.exec(`
     CREATE TABLE l1_records (
       record_id TEXT PRIMARY KEY, content TEXT NOT NULL, type TEXT DEFAULT '', priority INTEGER DEFAULT 50,
@@ -28,7 +28,7 @@ const db=new DatabaseSync(dbPath);
     );
   `);
 
-return db;
+  return db;
 }
 export function startServer(dataDir, overrides = {}) {
   const child = spawn(process.execPath, ["--disable-warning=ExperimentalWarning", SERVER_PATH], {
@@ -36,21 +36,34 @@ export function startServer(dataDir, overrides = {}) {
     stdio: ["pipe", "pipe", "pipe"],
   });
   const lines = readline.createInterface({ input: child.stdout, crlfDelay: Infinity });
-  const pending = [];
+  const pending = new Map();
   let stderr = "";
   child.stderr.on("data", (chunk) => { stderr += chunk.toString(); });
-  lines.on("line", (line) => pending.shift()?.resolve(JSON.parse(line)));
-
+  child.once("exit", () => {
+    for (const waiter of pending.values()) { clearTimeout(waiter.timer); waiter.reject(new Error("MCP exited before replying")); }
+    pending.clear();
+  });
+  lines.on("line", (line) => {
+    const response = JSON.parse(line);
+    const key = response.id === null ? pending.keys().next().value : response.id;
+    const waiter = pending.get(key);
+    if (waiter) { clearTimeout(waiter.timer); pending.delete(key); waiter.resolve(response); }
+  });
   return {
     request(message) {
-      return new Promise((resolve) => {
-        pending.push({ resolve });
-        child.stdin.write(`${JSON.stringify(message)}\n`);
+      return new Promise((resolve, reject) => {
+        assert.ok(!pending.has(message.id), "test requests must have unique pending ids");
+        const timer = setTimeout(() => { pending.delete(message.id); reject(new Error("MCP request timed out")); child.kill(); }, 15000);
+        pending.set(message.id, { resolve, reject, timer });
+        child.stdin.write(JSON.stringify(message) + "\n");
       });
     },
     async close() {
-      child.stdin.end();
-      await new Promise((resolve) => child.once("exit", resolve));
+      if (child.exitCode === null && child.signalCode === null) {
+        const exited = new Promise((resolve) => child.once("exit", resolve));
+        child.stdin.end();
+        await exited;
+      }
       assert.equal(stderr.trim(), "", "server should produce no stderr output");
     },
   };

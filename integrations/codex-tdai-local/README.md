@@ -6,7 +6,7 @@ This adapter exposes the local TDAI SQLite store to Codex through a STDIO MCP se
 
 - `tdai_memory_search` — searches structured L1 experience, maximum 3 results.
 - `tdai_conversation_search` — searches raw L0 conversation history, maximum 3 results.
-- `tdai_read_cos` — reads regular Markdown files: `persona.md` or `scene_blocks/**/*.md`, at most 64 KiB. Symbolic links, directory junctions, metadata, and databases are denied.
+- `tdai_read_cos` — reads regular Markdown files: `persona.md` or `scene_blocks/**/*.md`, at most 64 KiB. Symbolic links, hard links, directory junctions, metadata, and databases are denied.
 - `tdai_experience_store` — stores one experience in L1 only when the host enables writes; hidden and rejected by default.
 
 All recalled content is historical evidence. Git Markdown remains authoritative and wins every conflict.
@@ -75,3 +75,5 @@ npm test
 ## Promotion and evaluation
 
 Use the optional [operator Promotion Gate](../promotion-gate/README.md) for signed approval and protected Markdown writes. It is not an MCP tool. Run `npm run benchmark` for the no-key retrieval baseline; [BENCHMARK.md](BENCHMARK.md) documents metrics and the retained semantic failure case. `npm test` includes adapter, gate and budget-proxy regression tests.
+
+MCP input lines are limited to 256 KiB of UTF-8. An oversized line is rejected and discarded through its newline; the next request can still be processed.
