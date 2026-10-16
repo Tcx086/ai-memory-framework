@@ -71,3 +71,7 @@ node --test server.integration.test.mjs
 # or
 npm test
 ```
+
+## Promotion and evaluation
+
+Use the optional [operator Promotion Gate](../promotion-gate/README.md) for signed approval and protected Markdown writes. It is not an MCP tool. Run `npm run benchmark` for the no-key retrieval baseline; [BENCHMARK.md](BENCHMARK.md) documents metrics and the retained semantic failure case. `npm test` includes adapter, gate and budget-proxy regression tests.

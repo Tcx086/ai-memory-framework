@@ -92,7 +92,7 @@ Example (STM32 PWM bug):
 | Verified | "Modified to use CCER control — PWM works correctly" |
 | Authoritative | Written to `BUGS.md` as confirmed root cause |
 
-See `rules/memory-promotion.md` for full rules.
+See `rules/memory-promotion.md` for full rules and [Promotion Gate](integrations/promotion-gate/README.md) for optional executable enforcement.
 
 ## Repository Layout
 
@@ -192,7 +192,7 @@ OpenClaw users can copy `workspace-example/` and fill in identity, user, and too
 
 ## Security
 
-This is a memory governance policy framework with a local MCP adapter. The adapter enforces scoped SQLite access, bounded file reads, and a host-controlled write switch. User consent and promotion into authoritative Markdown remain host responsibilities; this repository does not provide an independent Promotion Gate.
+This is a memory governance policy framework with a local MCP adapter. The adapter enforces scoped SQLite access, bounded file reads, and a host-controlled write switch. The optional [operator Promotion Gate](integrations/promotion-gate/README.md) validates signed approval and atomically appends reviewed candidates. Human fact review and OS isolation remain host responsibilities.
 
 - Never store passwords, API keys, tokens, or private keys in memory.
 - Never commit runtime databases, raw conversations, or full tool configurations to this repo.

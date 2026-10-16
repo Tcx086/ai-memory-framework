@@ -1,3 +1,4 @@
+import { createDatabase, startServer, toolCall } from "./test-support.mjs";
 import assert from "node:assert/strict";
 import { mkdtempSync, mkdirSync, writeFileSync, symlinkSync, rmSync } from "node:fs";
 import path from "node:path";
@@ -11,29 +12,7 @@ const SERVER_PATH = path.join(import.meta.dirname, "server.mjs");
 function createFixture() {
   const dataDir = mkdtempSync(path.join(import.meta.dirname, "tdai-test-"));
   const dbPath = path.join(dataDir, "vectors.db");
-  const db = new DatabaseSync(dbPath);
-  db.exec(`
-    CREATE TABLE l1_records (
-      record_id TEXT PRIMARY KEY, content TEXT NOT NULL, type TEXT DEFAULT '', priority INTEGER DEFAULT 50,
-      scene_name TEXT DEFAULT '', session_key TEXT DEFAULT '', session_id TEXT DEFAULT '', timestamp_str TEXT DEFAULT '',
-      timestamp_start TEXT DEFAULT '', timestamp_end TEXT DEFAULT '', created_time TEXT DEFAULT '', updated_time TEXT DEFAULT '',
-      metadata_json TEXT DEFAULT '{}'
-    );
-    CREATE VIRTUAL TABLE l1_fts USING fts5(
-      content, content_original UNINDEXED, record_id UNINDEXED, type UNINDEXED, priority UNINDEXED,
-      scene_name UNINDEXED, session_key UNINDEXED, session_id UNINDEXED, timestamp_str UNINDEXED,
-      timestamp_start UNINDEXED, timestamp_end UNINDEXED, metadata_json UNINDEXED
-    );
-    CREATE TABLE l0_conversations (
-      record_id TEXT PRIMARY KEY, session_key TEXT NOT NULL, session_id TEXT DEFAULT '', role TEXT NOT NULL DEFAULT '',
-      message_text TEXT NOT NULL, recorded_at TEXT DEFAULT '', timestamp INTEGER DEFAULT 0
-    );
-    CREATE VIRTUAL TABLE l0_fts USING fts5(
-      message_text, message_text_original UNINDEXED, record_id UNINDEXED, session_key UNINDEXED,
-      session_id UNINDEXED, role UNINDEXED, recorded_at UNINDEXED, timestamp UNINDEXED
-    );
-  `);
-
+  const db = createDatabase(dbPath);
   const insertL1 = db.prepare(`INSERT INTO l1_records (
     record_id, content, type, priority, scene_name, session_key, session_id, timestamp_str,
     timestamp_start, timestamp_end, created_time, updated_time, metadata_json
@@ -69,36 +48,6 @@ function createFixture() {
   }
   db.close();
   return { dataDir, dbPath };
-}
-
-function startServer(dataDir, overrides = {}) {
-  const child = spawn(process.execPath, ["--disable-warning=ExperimentalWarning", SERVER_PATH], {
-    env: { ...process.env, TDAI_DATA_DIR: dataDir, TDAI_SESSION_KEY: "fixture", TDAI_ALLOW_STORE: "true", ...overrides },
-    stdio: ["pipe", "pipe", "pipe"],
-  });
-  const lines = readline.createInterface({ input: child.stdout, crlfDelay: Infinity });
-  const pending = [];
-  let stderr = "";
-  child.stderr.on("data", (chunk) => { stderr += chunk.toString(); });
-  lines.on("line", (line) => pending.shift()?.resolve(JSON.parse(line)));
-
-  return {
-    request(message) {
-      return new Promise((resolve) => {
-        pending.push({ resolve });
-        child.stdin.write(`${JSON.stringify(message)}\n`);
-      });
-    },
-    async close() {
-      child.stdin.end();
-      await new Promise((resolve) => child.once("exit", resolve));
-      assert.equal(stderr.trim(), "", "server should produce no stderr output");
-    },
-  };
-}
-
-function toolCall(client, id, name, args) {
-  return client.request({ jsonrpc: "2.0", id, method: "tools/call", params: { name, arguments: args } });
 }
 
 const ADMISSION = { user_authorized: true, confirmed: true, stable: true, reusable: true };
