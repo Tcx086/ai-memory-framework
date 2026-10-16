@@ -2,6 +2,7 @@
   "schema": 1,
   "sourceCommit": "4ba2c14f98f51fe11172641f6c35532c7561c4e7",
   "harnessSha256": "97ae01322f00c4585c850b53d7370be6e92744da89593ab8bb861e44c83f5fee",
+  "textNormalization": "UTF-8/LF artifact framing; model answers and JSON string values unchanged.",
   "artifacts": [
     {
       "path": "README.md",
@@ -10,13 +11,13 @@
     },
     {
       "path": "alpha-isolation.json",
-      "bytes": 314,
-      "sha256": "eea277c1eef82305ec505229250ba075f049cc0978b4b893c9369b78bc287069"
+      "bytes": 302,
+      "sha256": "e16d1343045bbfe58dcdbfe79f000b3303b3cd408840b1cc96878426a6050cfd"
     },
     {
       "path": "alpha-turns.jsonl",
-      "bytes": 9346,
-      "sha256": "4cd82bf18232036512012a47871d051de156de860e82f34a707ef440ec7538d6"
+      "bytes": 9344,
+      "sha256": "843a28d958aac3326251e8780e9554af402cce1c771502f8bf53b63b89063aa1"
     },
     {
       "path": "benchmark.json",
@@ -25,13 +26,13 @@
     },
     {
       "path": "beta-isolation.json",
-      "bytes": 313,
-      "sha256": "edf096150339bbafa2387c2e251703d177f2fba5148265bbf84b1c0b2544f2ce"
+      "bytes": 301,
+      "sha256": "09e1a7bc6757de9cc69b9c9079d51f73a2d5ad1d82208a893797e990a244b62c"
     },
     {
       "path": "beta-turns.jsonl",
-      "bytes": 4669,
-      "sha256": "dee96d7d0c494410256df149925ddd39eeb4029ea605ad04a480ddb3c73f7009"
+      "bytes": 4668,
+      "sha256": "63fab596f0f335de3228f9467d27b37400410a9dfbbb1fc81d0e22c122baf264"
     },
     {
       "path": "budget-ledger.json",
@@ -45,13 +46,18 @@
     },
     {
       "path": "disk-full.json",
-      "bytes": 670,
-      "sha256": "409db1b602ec8750133858291efe02afa4f0cb7bdc78f7f876cb65430baf3aa8"
+      "bytes": 640,
+      "sha256": "292777118e987e046408fd90f9c6e4f93f1d279566f357c0cfac0f477e6f9769"
     },
     {
       "path": "endurance-status.json",
-      "bytes": 1744,
-      "sha256": "39b0db08283e7dbc570189c18836e9769fcb0793447a526106291759173bf4ad"
+      "bytes": 1695,
+      "sha256": "57ddbf113f19c7bb3ef6890df3daa6d4b13702839a3690a9c687a2c4de78e70f"
+    },
+    {
+      "path": "holdout/manifest.json",
+      "bytes": 1939,
+      "sha256": "58eb07398befdc34372b299af5a9b60faa103876cc200492d1e39ee6be5ee6a2"
     },
     {
       "path": "holdout/responses.jsonl",
@@ -75,8 +81,8 @@
     },
     {
       "path": "isolation-deployment.json",
-      "bytes": 1533,
-      "sha256": "f8b0696657eadc5bc61bd254f7bf6fc9cde1e25fce826b4bab30895c05bb5d3b"
+      "bytes": 1476,
+      "sha256": "29a31b700272a2f8848b6dfd71ba00fb5fdccd1dce6d322f001a7fed49cd5e8a"
     },
     {
       "path": "offline.json",
