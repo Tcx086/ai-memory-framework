@@ -53,3 +53,5 @@ Capture/extraction are historical evidence only. They do not authorize promotion
 See [comprehensive validation](../../tests/comprehensive/README.md) for the labeled governance evaluation, actual two-Gateway tests and independent operator permission proof. Shared native-plugin stores were observed to return another session's memory even with a different Agent session key. Use a dedicated OpenClaw state/data directory per trust boundary; workspace or Agent routing alone is insufficient. The original example's capture exclusion is a routing choice, not storage isolation.
 
 The proxy defaults to the small smoke-test limits. An operator-owned `/private/budget-policy.json` may raise them explicitly, with an absolute code ceiling of 90 RMB cumulative reservation. Preserve the ledger and stop Gateways before `docker stop --timeout 60 ai-memory-p2-budget` so pending extraction usage can finish recording.
+
+Budget estimates apply to text-only chat and client-executed function definitions. The proxy rejects remote images/audio/files, unknown message fields and hosted tools before reserving or forwarding; their billing cannot be bounded by request-text bytes.

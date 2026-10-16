@@ -22,6 +22,13 @@ export function createBudgetProxy({ ledgerFile, readKey, forward, limits = { max
       for await (const chunk of req) { size += chunk.length; if (size > 131072) return reply(413, { error: "Request too large" }); chunks.push(chunk); }
       const input = JSON.parse(Buffer.concat(chunks).toString("utf8"));
       if (!Array.isArray(input.messages) || !input.messages.length || input.model !== "deepseek-flash") return reply(400, { error: "Only deepseek-flash chat messages are allowed" });
+      const fields = new Set(["role", "content", "name", "tool_call_id", "tool_calls", "reasoning_content", "prefix"]);
+      const textOnly = input.messages.every((m) => m && typeof m === "object" && !Array.isArray(m) && Object.keys(m).every((k) => fields.has(k)) &&
+        (m.content == null || typeof m.content === "string" || (Array.isArray(m.content) && m.content.every((p) => p?.type === "text" && typeof p.text === "string"))) &&
+        (m.tool_calls == null || (Array.isArray(m.tool_calls) && m.tool_calls.every((c) => c?.type === "function"))));
+      const functionsOnly = input.tools == null || (Array.isArray(input.tools) && input.tools.every((t) => t?.type === "function" && t.function && typeof t.function === "object"));
+      // Remote media and hosted tools can incur charges unrelated to request text size.
+      if (!textOnly || !functionsOnly) return reply(400, { error: "Text-only messages and client function tools are required" });
       const key = readKey();
       if (!key) return reply(503, { error: "Model key has not been configured" });
       const payload = { model: "deepseek-flash", messages: input.messages, max_tokens: 2048,

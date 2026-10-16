@@ -63,3 +63,19 @@ test("expanded budget policy cannot exceed the hard ceiling or accept negative s
     assert.equal(response.status,200);assert.equal(JSON.parse(fs.readFileSync(file)).calls,13);
   }finally{await new Promise(r=>server.close(r))}
 });
+
+test("reservation cannot be bypassed by remote media or hosted paid tools",async(t)=>{
+  const dir=fs.mkdtempSync(path.join(os.tmpdir(),"budget-media-"));let calls=0;
+  const server=createBudgetProxy({ledgerFile:path.join(dir,"ledger.json"),readKey:()=> "fake",forward:async()=>{calls++;return{choices:[{message:{content:"ok"}}],usage:{prompt_tokens:1,completion_tokens:1}}}});
+  await new Promise(r=>server.listen(0,"127.0.0.1",r));
+  t.after(async()=>{await new Promise(r=>server.close(r));fs.rmSync(dir,{recursive:true,force:true})});
+  const send=body=>fetch("http://127.0.0.1:"+server.address().port+"/v1/chat/completions",{method:"POST",body:JSON.stringify({model:"deepseek-flash",...body})});
+  for(const type of ["image_url","input_audio","file"]){
+    const response=await send({messages:[{role:"user",content:[{type,image_url:{url:"https://example.invalid/huge-image"},file:{file_id:"fixture"},input_audio:{data:"fixture"}}]}]});
+    assert.equal(response.status,400);
+  }
+  assert.equal((await send({messages:[{role:"user",content:"fixture"}],tools:[{type:"web_search"}]})).status,400);
+  assert.equal(calls,0);
+  assert.equal((await send({messages:[{role:"user",content:[{type:"text",text:"fixture"}]}],tools:[{type:"function",function:{name:"fixture_tool",parameters:{type:"object",properties:{}}}}]})).status,200);
+  assert.equal(calls,1);
+});

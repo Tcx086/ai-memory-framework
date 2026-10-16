@@ -70,3 +70,5 @@ UID 1000 can propose but cannot read the approval key, write authority, rename t
 ## Interpretation
 
 Publish failures, limitations, per-case data, source/corpus hashes, software versions, elapsed time and token accounting together. Passing keyword fixtures or multiple-choice governance decisions does not prove production semantic accuracy. A bounded soak does not prove multi-day reliability. Budget reservations and actual usage estimates must be reported separately; absent usage must remain unknown.
+
+Budget estimates apply to text-only chat and client-executed function definitions. The proxy rejects remote images/audio/files, unknown message fields and hosted tools before reserving or forwarding; their billing cannot be bounded by request-text bytes.
