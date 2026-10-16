@@ -21,3 +21,7 @@ The user authorized a total maximum of 100 RMB on 2026-10-16. Preserve the exist
 A reservation is persisted before upstream I/O and assumes request UTF-8 bytes plus 16,384 protocol tokens and 2,048 output tokens at 10 RMB/M, exceeding the verified Flash peak 2/8 RMB/M input/output prices. Only the fixed DeepSeek endpoint and Flash non-thinking mode are permitted. There are no other paid egress routes. If limits, authentication or persistence fail, stop paid tests and publish the incomplete coverage.
 
 The previous proxy was stopped with Docker's short default timeout, leaving one reserved request without a completed usage record and a stale owner lock. Preserve that charge reservation; inspect the stopped container before manual lock recovery. New shutdowns drain Gateway first and allow the proxy 60 seconds, exceeding its 45-second upstream deadline.
+
+## Exploratory L2/L3 extension
+
+After the frozen primary evaluation completed, an additional actual scene/persona pipeline test was added without changing the 240 cases, labels or model scores. Its first run reused existing state and ended when old scenes/persona completed; the missing Rust/language anchors correctly failed. The failed report and original harness are retained. The final run uses a fresh state directory and waits for the current anchor facts. Generated content describes a fictional role only. The hardened text/function-only budget proxy is used, with the original cumulative ledger and limits preserved.

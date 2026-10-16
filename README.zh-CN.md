@@ -156,3 +156,7 @@ OpenClaw 用户可以复制 `workspace-example/`，再填写其中的身份、�
 ## Credits
 
 Built through iterative human-AI collaboration across real engineering workflows.
+
+## 验证证据
+
+[2026-10-16 完整测试报告](test-results/2026-10-16-comprehensive/README.md) 包含合成测试原始数据、失败记录、费用和复现脚本，并明确关键词检索、原生插件共享存储及模型治理提示的限制。

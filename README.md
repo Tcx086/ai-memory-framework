@@ -205,3 +205,7 @@ This is a memory governance policy framework with a local MCP adapter. The adapt
 ## Credits
 
 Built through iterative human-AI collaboration across real engineering workflows.
+
+## Validation evidence
+
+The [2026-10-16 comprehensive report](test-results/2026-10-16-comprehensive/README.md) includes full synthetic test data, failures, costs and reproducible scripts. It reports the limits of keyword retrieval, native-plugin storage isolation and model policy guidance.

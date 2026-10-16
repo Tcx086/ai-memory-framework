@@ -72,3 +72,7 @@ UID 1000 can propose but cannot read the approval key, write authority, rename t
 Publish failures, limitations, per-case data, source/corpus hashes, software versions, elapsed time and token accounting together. Passing keyword fixtures or multiple-choice governance decisions does not prove production semantic accuracy. A bounded soak does not prove multi-day reliability. Budget reservations and actual usage estimates must be reported separately; absent usage must remain unknown.
 
 Budget estimates apply to text-only chat and client-executed function definitions. The proxy rejects remote images/audio/files, unknown message fields and hosted tools before reserving or forwarding; their billing cannot be bounded by request-text bytes.
+
+## Exploratory scene/persona pipeline
+
+After the primary Gateway runner, profile-eval.mjs creates a fresh state directory, enables short L2 scheduling and a synthetic L3 trigger, checks the supplied Rust/language anchor facts, reads generated files through the actual MCP boundary, and verifies PROJECT.md remains byte-identical. It derives its prepared-lab paths from /lab/reports/comprehensive-openclaw/results.json. Run with the same Docker opt-in environment and existing budget proxy. This is separate from the frozen primary evaluation; initial failed results are retained in the dated report.
