@@ -6,8 +6,8 @@
   "artifacts": [
     {
       "path": "README.md",
-      "bytes": 6113,
-      "sha256": "14e6442f844e7630501d1cbf2358b1280428302f49ef631dcf654dcf6dff7cc0"
+      "bytes": 6169,
+      "sha256": "2f750ca8b2efd23d275fcdc36d396676f1242992d910e009ec053185dadfd9da"
     },
     {
       "path": "alpha-isolation.json",
@@ -41,8 +41,8 @@
     },
     {
       "path": "budget-summary.json",
-      "bytes": 365,
-      "sha256": "8e18877a260e19d0942a98342ba4791d32b48302d401b9201b9cf0ba0ce73372"
+      "bytes": 521,
+      "sha256": "d0831c4d995297769dbc44bb904c164b7d07ccc2927bd1a6b52f02eb93940704"
     },
     {
       "path": "disk-full.json",

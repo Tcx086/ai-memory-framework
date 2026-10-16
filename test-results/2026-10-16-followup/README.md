@@ -36,7 +36,7 @@ This tests a single Linux Docker host and idle/retrieval recovery; it does not e
 
 ## Budget and evidence
 
-The previous cumulative ledger is preserved: starting calls 302, reservation 81.94567 RMB, one old interrupted request without usage. This follow-up allows at most 24 additional calls (326 cumulative), retains the 90 RMB conservative reservation ceiling below the user's 100 RMB authorization, and renews only expiry for this campaign. Proxy and model containers have no real key in their configuration; the private proxy UID/volume retains it.
+The previous cumulative ledger is preserved: starting calls 302, reservation 81.94567 RMB, one old interrupted request without usage. This follow-up allows at most 48 additional calls (350 cumulative), including headroom for native background L2 scheduling, retains the 90 RMB conservative reservation ceiling below the user's 100 RMB authorization, and renews only expiry for this campaign. Proxy and model containers have no real key in their configuration; the private proxy UID/volume retains it.
 
 Reservation is not spending. The dated token-based estimate, missing-usage allowance and software/container/artifact identities are recorded in the machine-readable evidence. No account bill or balance is inferred.
 
