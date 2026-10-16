@@ -20,15 +20,15 @@ The 24 questions were authored by the implementer and are now public. This is a 
 
 ## Initial failures retained
 
-The first explicitly fictional capture wording reached L0 but was filtered to zero L1 by the native extractor. The raw ACK turn is retained; a subsequent explicit confirmed engineering fixture produced L1. This is not counted as a successful first extraction.
+The first explicitly fictional capture wording reached L0 but produced zero L1 in the native extractor. The raw ACK turn is retained; a subsequent explicit confirmed engineering fixture produced L1. This is not counted as a successful first extraction. Omission due to fictional wording is a hypothesis, not a verified model rationale.
 
 The first native object-file probe wrote fixtures at the pipeline root, while native read_cos resolves the distinct cos-storage root. The corrected storage-isolation fixture uses both actual roots. It does not prove native read_cos consumes pipeline-generated profiles. The framework MCP adapter remains the supported reader for those profiles; no symlink bridge or vendor patch was introduced.
 
 ## Genuine 72-hour campaign
 
-Status: **pending** until both project checkpoints report complete, passed and at least 259,200 observed seconds. The final machine-readable status lives in endurance-status.json when archived. No multi-day pass is claimed by this initial report.
+Formal containers started 2026-10-16 19:31 UTC; first health-checked cycles succeeded. Status: **pending** until both project checkpoints report complete, passed and at least 259,200 observed seconds. The final machine-readable status lives in endurance-status.json when archived. No multi-day pass is claimed by this initial report.
 
-A 120-observed-second preflight first exercises repeated forced Gateway process-group kills and MCP restarts. Each project then runs health/native positive-and-negative retrieval, scoped synthetic MCP write/search, authority-hash stability and periodic SQLite/FTS integrity checks. Recovery occurs every six observed hours. At days one and two a bounded real Agent turn must persist fresh L0/L1. Whole-container cgroup memory samples and OOM counters are retained. No model retry is automatic after an interrupted checkpoint.
+The preflight passed on both projects: alpha 120.514866 observed seconds, beta 120.493620, each with four forced Gateway kills and MCP restarts. The immutable formal harness adds recovery-duration/OOM instrumentation; both active copies match its archived hash. Each project then runs health/native positive-and-negative retrieval, scoped synthetic MCP write/search, authority-hash stability and periodic SQLite/FTS integrity checks. Recovery occurs every six observed hours. At days one and two a bounded real Agent turn must persist fresh L0/L1. Whole-container cgroup memory samples and OOM counters are retained. No model retry is automatic after an interrupted checkpoint.
 
 Long pauses and planned recovery do not count toward healthy observed duration; completion may be later than 72 wall-clock hours. Keep Docker Desktop and the machine running. A local monitor will collect final results, verify source/artifact hashes, update the existing PR and stop the testing services. Ordinary CI performs no paid or long-running tests.
 
