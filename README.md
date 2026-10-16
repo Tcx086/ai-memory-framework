@@ -62,7 +62,7 @@ When multiple agents produce conflicting information, the authority system deter
 
 | Level | Source | Rule |
 |---|---|---|
-| 0 | User Instruction | Highest — overrides everything |
+| 0 | User Instruction | Highest information priority; operation approval is separate |
 | 1 | Agent Rules (`rules/`) | Governance, safety |
 | 2 | Project Memory | Current verified truth |
 | 3 | Personal Memory | User preferences |
@@ -191,6 +191,8 @@ OpenClaw users can copy `workspace-example/` and fill in identity, user, and too
 - **Other AI assistants** — any tool that reads Markdown can use the authoritative memory layer.
 
 ## Security
+
+This is a memory governance policy framework with a local MCP adapter. The adapter enforces scoped SQLite access, bounded file reads, and a host-controlled write switch. User consent and promotion into authoritative Markdown remain host responsibilities; this repository does not provide an independent Promotion Gate.
 
 - Never store passwords, API keys, tokens, or private keys in memory.
 - Never commit runtime databases, raw conversations, or full tool configurations to this repo.

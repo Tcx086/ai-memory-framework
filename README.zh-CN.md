@@ -16,8 +16,8 @@
 git clone https://github.com/hczxy05/ai-memory-framework.git ~/ai-memory
 ```
 
-1. 在 `memory/universal-memory.md` 填写稳定的用户信息和偏好。
-2. 在 `memory/projects.md` 添加项目路径；按需调整 `memory/conventions.md`。
+1. 在 `personal/universal-memory.md` 填写稳定的用户信息和偏好。
+2. 在 `project/projects.md` 添加项目路径；按需调整 `rules/conventions.md`。
 3. 让你的 Agent 每次任务先读 `~/ai-memory/AGENTS.md`。
 
 这时 Git Markdown 记忆已经可以独立工作；TDAI 经验记忆是可选增强。
@@ -50,12 +50,16 @@ AI 助手容易在会话之间丢失上下文，也容易把旧对话误当成�
 ```text
 ai-memory-framework/
 ├── AGENTS.md                    # 每次任务加载的行为摘要
-├── memory/
+├── rules/                       # Agent 行为与治理规则
+│   ├── authority.md             # 信息来源优先级与操作授权
 │   ├── memory-policy.md         # 完整权威规范
+│   ├── memory-promotion.md      # 记忆晋升流程
 │   ├── conventions.md           # 稳定协作约定
-│   ├── universal-memory.md      # 用户信息模板
-│   ├── projects.md              # 项目索引模板
 │   └── changelog.md
+├── personal/
+│   └── universal-memory.md      # 用户信息模板
+├── project/
+│   └── projects.md              # 项目索引模板
 ├── templates/
 │   ├── project-template.md
 │   ├── task-template.md
@@ -129,7 +133,7 @@ OpenClaw 用户可以复制 `workspace-example/`，再填写其中的身份、�
 
 1. 使用 `templates/project-template.md` 在项目仓库中创建 `STATUS.md` 或组合式 `PROJECT.md`。
 2. 大型项目按需增加 `ARCHITECTURE.md`、`DECISIONS.md`、`BUGS.md`、`LESSONS.md`。
-3. 在 `memory/projects.md` 中登记项目路径。
+3. 在 `project/projects.md` 中登记项目路径。
 
 ## 兼容平台
 
@@ -138,6 +142,8 @@ OpenClaw 用户可以复制 `workspace-example/`，再填写其中的身份、�
 - **其他 AI 助手** — 只要能读取 Markdown，即可使用权威记忆层。
 
 ## 安全
+
+本项目是一套记忆治理规范及本地 MCP 适配器。适配器通过代码限制 SQLite 检索作用域、文件读取范围与字节数，并由宿主控制是否开放写入。真实用户授权和晋升到权威 Markdown 仍由宿主负责；仓库尚未提供独立的 Promotion Gate。
 
 - 不在记忆中存储密码、API Key、Token 或私钥。
 - 不把运行时数据库、原始对话或完整工具配置提交到本仓库。
