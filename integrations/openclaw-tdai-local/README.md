@@ -55,3 +55,7 @@ See [comprehensive validation](../../tests/comprehensive/README.md) for the labe
 The proxy defaults to the small smoke-test limits. An operator-owned `/private/budget-policy.json` may raise them explicitly, with an absolute code ceiling of 90 RMB cumulative reservation. Preserve the ledger and stop Gateways before `docker stop --timeout 60 ai-memory-p2-budget` so pending extraction usage can finish recording.
 
 Budget estimates apply to text-only chat and client-executed function definitions. The proxy rejects remote images/audio/files, unknown message fields and hosted tools before reserving or forwarding; their billing cannot be bounded by request-text bytes.
+
+## Default project deployment
+
+For a new trust boundary, use the [project-isolated Docker bundle](PROJECT-ISOLATION.md). It creates independent containers and data volumes rather than adding another Agent to a shared native store. Existing manually configured installs still require explicit state/data separation.

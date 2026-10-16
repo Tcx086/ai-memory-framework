@@ -76,3 +76,7 @@ Budget estimates apply to text-only chat and client-executed function definition
 ## Exploratory scene/persona pipeline
 
 After the primary Gateway runner, profile-eval.mjs creates a fresh state directory, enables short L2 scheduling and a synthetic L3 trigger, checks the supplied Rust/language anchor facts, reads generated files through the actual MCP boundary, and verifies PROJECT.md remains byte-identical. It derives its prepared-lab paths from /lab/reports/comprehensive-openclaw/results.json. Run with the same Docker opt-in environment and existing budget proxy. This is separate from the frozen primary evaluation; initial failed results are retained in the dated report.
+
+## Follow-up campaign
+
+See [FOLLOWUP.md](FOLLOWUP.md) for default deployment isolation, the 24-scene free-answer evaluation, real ENOSPC recovery and 72-hour observed-duration Gateway/MCP validation. The dated [follow-up report](../../test-results/2026-10-16-followup/README.md) records completed checks separately from pending endurance.
