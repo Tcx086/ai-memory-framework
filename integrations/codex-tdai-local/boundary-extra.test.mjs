@@ -69,3 +69,31 @@ test("scene candidate cutoff retains the best term coverage when FTS also matche
   try{const response=await toolCall(client,32,"tdai_memory_search",{query:"uniqueidentifier telemetry port"});assert.ok(response.result.structuredContent.results.some(r=>r.id==="target"))}
   finally{await client.close()}
 });
+
+test("abrupt writer exit leaves recoverable SQLite and FTS state",async(t)=>{
+  const dir=fixture(t),{spawn}=await import("node:child_process"),{DatabaseSync}=await import("node:sqlite");
+  const child=spawn(process.execPath,["--disable-warning=ExperimentalWarning",path.join(import.meta.dirname,"server.mjs")],{
+    env:{...process.env,TDAI_DATA_DIR:dir,TDAI_SESSION_KEY:"fixture",TDAI_ALLOW_STORE:"true"},stdio:["pipe","pipe","pipe"]});
+  t.after(()=>{if(child.exitCode===null&&child.signalCode===null)child.kill("SIGKILL")});
+  child.stdin.on("error",()=>{});child.stdout.resume();let stderr="";child.stderr.on("data",b=>stderr+=b);
+  for(let n=0;n<100;n++)child.stdin.write(JSON.stringify({jsonrpc:"2.0",id:n,method:"tools/call",params:{name:"tdai_experience_store",arguments:{content:"Crash recovery fixture fact "+n+" is confirmed and reusable.",user_authorized:true,confirmed:true,stable:true,reusable:true}}})+"\n");
+  let observed=0;
+  const deadline=Date.now()+5000;
+  while(!observed&&Date.now()<deadline){
+    let db;try{db=new DatabaseSync(path.join(dir,"vectors.db"),{readOnly:true});observed=db.prepare("SELECT count(*) n FROM l1_records").get().n}catch{}finally{db?.close()}
+    if(!observed)await new Promise(r=>setTimeout(r,5));
+  }
+  assert.ok(observed>0,"writer should commit before the crash test");
+  const exited=new Promise(r=>child.once("exit",r));child.kill("SIGKILL");await exited;
+  assert.equal(stderr.trim(),"");
+  // A trusted writer/operator may recover a hot rollback journal; read-only MCP must not silently write.
+  const db=new DatabaseSync(path.join(dir,"vectors.db"));
+  try{
+    assert.equal(db.prepare("PRAGMA integrity_check").get().integrity_check,"ok");
+    const records=db.prepare("SELECT count(*) n FROM l1_records").get().n,fts=db.prepare("SELECT count(*) n FROM l1_fts").get().n;
+    assert.equal(records,fts);assert.ok(records>=observed&&records<=100);
+  }finally{db.close()}
+  const recovered=startServer(dir);
+  try{const response=await toolCall(recovered,99,"tdai_memory_search",{query:"Crash recovery fixture"});assert.ok(!response.result.isError);assert.ok(response.result.structuredContent.results.length)}
+  finally{await recovered.close()}
+});

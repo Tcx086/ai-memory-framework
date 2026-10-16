@@ -24,3 +24,4 @@ jobs:
         working-directory: integrations/codex-tdai-local
       - run: npm run benchmark
         working-directory: integrations/codex-tdai-local
+      - run: node --disable-warning=ExperimentalWarning tests/comprehensive/offline.mjs

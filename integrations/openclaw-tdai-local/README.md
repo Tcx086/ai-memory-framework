@@ -47,3 +47,9 @@ Tests consume model credits and are opt-in. Normal CI runs only offline tests an
 The tested local store is `~/.openclaw/memory-tdai/vectors.db`. Use separate OpenClaw state/data directories per user/project/agent trust boundary. The native plugin is third-party code and is not the framework MCP adapter: the framework's scoped filters do not retrofit ownership controls into native plugin tools.
 
 Capture/extraction are historical evidence only. They do not authorize promotion, overwrite Markdown, or prove a fact is true. Use the [operator Promotion Gate](../promotion-gate/README.md) with protected files and a separate approval key. Do not commit databases, JSONL, model keys, Gateway tokens, full runtime configurations or reports containing real conversation data.
+
+## Expanded verification
+
+See [comprehensive validation](../../tests/comprehensive/README.md) for the labeled governance evaluation, actual two-Gateway tests and independent operator permission proof. Shared native-plugin stores were observed to return another session's memory even with a different Agent session key. Use a dedicated OpenClaw state/data directory per trust boundary; workspace or Agent routing alone is insufficient. The original example's capture exclusion is a routing choice, not storage isolation.
+
+The proxy defaults to the small smoke-test limits. An operator-owned `/private/budget-policy.json` may raise them explicitly, with an absolute code ceiling of 90 RMB cumulative reservation. Preserve the ledger and stop Gateways before `docker stop --timeout 60 ai-memory-p2-budget` so pending extraction usage can finish recording.
