@@ -1,6 +1,6 @@
 # Follow-up validation
 
-This campaign closes the deployment isolation gap, adds source-scored free answers, and starts genuine multi-day execution. A prepared Docker lab is required; no host workspace or socket is mounted in model containers.
+This campaign closes the deployment isolation gap, adds source-scored free answers, and completes genuine multi-day execution. Final results and raw evidence are in [the dated report](../../test-results/2026-10-16-followup/README.md). A prepared Docker lab is required; no host workspace or socket is mounted in model containers.
 
 - project-config.mjs generates the actual isolated deployment exercised here. See [deployment instructions](../../integrations/openclaw-tdai-local/PROJECT-ISOLATION.md).
 - holdout-cases.json contains 24 manually authored, distinct synthetic questions, including numerical/unit conversion, supersession, dated history, cross-project false matches, poisoned recall, missing facts, retraction, authorization and a known semantic retrieval gap. Labels were frozen before the run and never sent to the model. Baseline/policy receive identical real scoped MCP retrieval and Markdown evidence; six requests produce 48 scored answers. This is a public author-authored evaluation, not independent expert validation. No claim of statistical accuracy gain.

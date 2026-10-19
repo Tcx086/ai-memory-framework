@@ -1,13 +1,14 @@
 {
-  "schema": 1,
+  "schema": 2,
   "sourceCommit": "4ba2c14f98f51fe11172641f6c35532c7561c4e7",
-  "harnessSha256": "97ae01322f00c4585c850b53d7370be6e92744da89593ab8bb861e44c83f5fee",
-  "textNormalization": "UTF-8/LF artifact framing; model answers and JSON string values unchanged.",
+  "sourceGitBlobSha256": "6d6cba01a48a71f775ecaa8c58d32eafdbff06654280f0cee31f98d1e0099431",
+  "activeRawHarnessSha256": "97ae01322f00c4585c850b53d7370be6e92744da89593ab8bb861e44c83f5fee",
+  "textNormalization": "SHA-256 and byte counts are calculated from staged Git blobs. Original CRLF active sources and complete Gateway logs are losslessly gzip-compressed; decompress to verify their raw hashes. Manifest excludes itself.",
   "artifacts": [
     {
       "path": "README.md",
-      "bytes": 6169,
-      "sha256": "2f750ca8b2efd23d275fcdc36d396676f1242992d910e009ec053185dadfd9da"
+      "bytes": 10188,
+      "sha256": "a93b5706a066b5351596087212592800f92b1d3ad51b8025ac122dc42df863e8"
     },
     {
       "path": "alpha-isolation.json",
@@ -35,6 +36,16 @@
       "sha256": "63fab596f0f335de3228f9467d27b37400410a9dfbbb1fc81d0e22c122baf264"
     },
     {
+      "path": "budget-final-ledger.json",
+      "bytes": 79438,
+      "sha256": "c9b56d15c24c56c947d95a4ca2320ce394a6d37e75694f741524a550c120a783"
+    },
+    {
+      "path": "budget-final-summary.json",
+      "bytes": 1042,
+      "sha256": "0783fd3a46e9c7c7aca8dc3dae1849c396e68e78d56e8d29e6934f777f5883f4"
+    },
+    {
       "path": "budget-ledger.json",
       "bytes": 77456,
       "sha256": "4854e6431449a09eadf37f3588bfaad926460fcdeb92fdea1c6e0b737005bcc8"
@@ -51,8 +62,108 @@
     },
     {
       "path": "endurance-status.json",
+      "bytes": 8629,
+      "sha256": "48f1ca48dafd06c183973c208fa1337e60ecf047147e7c122ce8a3496b65024b"
+    },
+    {
+      "path": "endurance/alpha/endurance-active.mjs.gz",
+      "bytes": 4561,
+      "sha256": "70d2e2c94696322220ad5b0f824661e318f18948d77b240615fd6539f91d3bf2"
+    },
+    {
+      "path": "endurance/alpha/events.jsonl",
+      "bytes": 1807,
+      "sha256": "2c9b2d493d2eb474a86fa42c5b55089b5c65becd06a952736624acfa6afd3760"
+    },
+    {
+      "path": "endurance/alpha/gateway.log.gz",
+      "bytes": 1038838,
+      "sha256": "d092913886fcfdae3e8fc4e3e485a84354cbef3bc93c3e6140cb6fcaa26fe57f"
+    },
+    {
+      "path": "endurance/alpha/isolation.json",
+      "bytes": 302,
+      "sha256": "e16d1343045bbfe58dcdbfe79f000b3303b3cd408840b1cc96878426a6050cfd"
+    },
+    {
+      "path": "endurance/alpha/progress.json",
+      "bytes": 334767,
+      "sha256": "b504cdee2d727821fb1f626cc6c90441a99380ec2adde73da1959ab661566ded"
+    },
+    {
+      "path": "endurance/alpha/turns.jsonl",
+      "bytes": 18674,
+      "sha256": "4e6f982ed761bd688bc3e55d3be1e51b35f2a93623ed4bf6feacba2a5757ad52"
+    },
+    {
+      "path": "endurance/beta/endurance-active.mjs.gz",
+      "bytes": 4561,
+      "sha256": "70d2e2c94696322220ad5b0f824661e318f18948d77b240615fd6539f91d3bf2"
+    },
+    {
+      "path": "endurance/beta/events.jsonl",
+      "bytes": 1800,
+      "sha256": "4b18041776975afb7761026707375a58e22fd6d7f376b67ee64985166ae1049d"
+    },
+    {
+      "path": "endurance/beta/gateway.log.gz",
+      "bytes": 1034653,
+      "sha256": "f648bc1fa5fd977b19813dec78e5c25ea97fe1fa1c4942330ec3fdcfa2fe8149"
+    },
+    {
+      "path": "endurance/beta/isolation.json",
+      "bytes": 301,
+      "sha256": "09e1a7bc6757de9cc69b9c9079d51f73a2d5ad1d82208a893797e990a244b62c"
+    },
+    {
+      "path": "endurance/beta/progress.json",
+      "bytes": 334526,
+      "sha256": "8194a8a3603e10dd02190a2eecfaf3607a96cff8232f3ac65d37618294098319"
+    },
+    {
+      "path": "endurance/beta/turns.jsonl",
+      "bytes": 13990,
+      "sha256": "6fd35bcc9e4a20dc1aad8d8636f4d7e49a4757995e7767fce3a2540ed3ff1263"
+    },
+    {
+      "path": "endurance/endurance-frozen-lf.mjs",
+      "bytes": 11691,
+      "sha256": "6d6cba01a48a71f775ecaa8c58d32eafdbff06654280f0cee31f98d1e0099431"
+    },
+    {
+      "path": "endurance/initial-status.json",
       "bytes": 1695,
       "sha256": "57ddbf113f19c7bb3ef6890df3daa6d4b13702839a3690a9c687a2c4de78e70f"
+    },
+    {
+      "path": "endurance/monitor-history.jsonl",
+      "bytes": 114782,
+      "sha256": "cc9a5b6b1cc09132c875e0bdd35cc40f475d57153257f026c70e672718621bd3"
+    },
+    {
+      "path": "endurance/operator-summary.json",
+      "bytes": 16776,
+      "sha256": "bccf55f06eaa676a71cdc04e1540b98bd8faeb994e8c9cd370fbc42ff3d48216"
+    },
+    {
+      "path": "endurance/publication-security-scan.json",
+      "bytes": 1091,
+      "sha256": "76b38f2fefc2a3ac7ec58502fd940b4863e7aa00f53e515a97b3a8b7412e8a6f"
+    },
+    {
+      "path": "endurance/raw-inventory.json",
+      "bytes": 6005,
+      "sha256": "4d4d3f515e03ed8cc2b9484358561847e081a3426869c5475300fd0ae618a732"
+    },
+    {
+      "path": "endurance/runtime-final.json",
+      "bytes": 3151,
+      "sha256": "22805e844ab879bf095771858ac78d93504c3cfba31c9595aa150350a8b646ed"
+    },
+    {
+      "path": "endurance/terminal-summary.json",
+      "bytes": 8404,
+      "sha256": "6000010c67a87c08ad8bec6f855481c4d82b33d7353988d9d492204178aecc7e"
     },
     {
       "path": "holdout/manifest.json",

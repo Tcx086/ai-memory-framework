@@ -209,3 +209,5 @@ Built through iterative human-AI collaboration across real engineering workflows
 ## Validation evidence
 
 The [2026-10-16 comprehensive report](test-results/2026-10-16-comprehensive/README.md) includes full synthetic test data, failures, costs and reproducible scripts. It reports the limits of keyword retrieval, native-plugin storage isolation and model policy guidance.
+
+The [completed follow-up report](test-results/2026-10-16-followup/README.md) adds isolated two-project deployment, 24 frozen free-answer scenarios and two completed 72-hour observed endurance runs with real L0/L1 checkpoints. Both answer conditions scored equally; no accuracy uplift is established. Full evidence includes restart memory pressure and the source line-ending provenance.

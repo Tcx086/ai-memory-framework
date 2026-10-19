@@ -160,3 +160,7 @@ Built through iterative human-AI collaboration across real engineering workflows
 ## 验证证据
 
 [2026-10-16 完整测试报告](test-results/2026-10-16-comprehensive/README.md) 包含合成测试原始数据、失败记录、费用和复现脚本，并明确关键词检索、原生插件共享存储及模型治理提示的限制。
+
+## 后续验证证据
+
+[项目隔离、自由回答与 72 小时完整报告](test-results/2026-10-16-followup/README.md)：两组均完成实际 72 小时观察及真实 L0/L1 检查点。冻结的 24 场景两组成绩相同，未证明准确率提升；报告保留完整运行日志、重启时内存压力和源码换行格式的哈希差异。
